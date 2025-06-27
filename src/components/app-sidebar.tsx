@@ -3,6 +3,7 @@ import {
   CalendarRange,
   LifeBuoy,
   School,
+  School2,
   Send,
   UsersRound,
 } from "lucide-react";
@@ -61,6 +62,12 @@ const data = {
           url: "/principal/students/create",
         },
       ],
+    },
+    {
+      title: "Classes",
+      url: "/principal/classes",
+      icon: School2,
+      items: [],
     },
   ],
   navSecondary: [
