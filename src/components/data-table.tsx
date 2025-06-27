@@ -308,7 +308,7 @@ export function DataTableActions({
         {detailFn ? (
           <DropdownMenuItem onClick={detailFn}>
             <FileSearch />
-            Edit
+            Detail
           </DropdownMenuItem>
         ) : (
           ""
