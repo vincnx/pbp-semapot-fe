@@ -38,10 +38,10 @@ const data = {
       url: "/principal/courses",
       icon: BookIcon,
       items: [
-        // {
-        //   title: "Create",
-        //   url: "/principal/courses/create",
-        // },
+        {
+          title: "Create",
+          url: "/principal/courses/create",
+        },
       ],
     },
   ],
