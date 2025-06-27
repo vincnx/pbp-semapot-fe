@@ -6,6 +6,7 @@ import {
   School2,
   Send,
   UsersRound,
+  type LucideIcon,
 } from "lucide-react";
 import * as React from "react";
 
@@ -21,6 +22,23 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+
+interface NavMain {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+  isActive?: boolean;
+  items?: {
+    title: string;
+    url: string;
+  }[];
+}
+
+interface NavSecondary {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+}
 
 const data = {
   user: {
@@ -89,7 +107,16 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  navMain?: NavMain[];
+  navSecondary?: NavSecondary[];
+}
+
+export function AppSidebar({
+  navMain,
+  navSecondary,
+  ...props
+}: AppSidebarProps) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -110,8 +137,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {navMain && navMain?.length ? <NavMain items={navMain} /> : ""}
+        {navSecondary && navSecondary?.length ? (
+          <NavSecondary items={navSecondary} className="mt-auto" />
+        ) : (
+          ""
+        )}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

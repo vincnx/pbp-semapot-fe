@@ -3,10 +3,10 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/__sidebarLayout/principal/students")({
+export const Route = createFileRoute("/principal/periods")({
   component: RouteComponent,
   loader: () => ({
-    crumb: "Students",
+    crumb: "Periods",
   }),
 });
 

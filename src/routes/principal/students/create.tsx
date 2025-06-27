@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
-  "/__sidebarLayout/principal/courses/create",
+  "/principal/students/create",
 )({
   component: RouteComponent,
   loader: () => ({
@@ -13,7 +13,7 @@ function RouteComponent() {
   return (
     <>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <h1>hello create courses page</h1>
+        <h1>hello create students page</h1>
       </div>
     </>
   );
