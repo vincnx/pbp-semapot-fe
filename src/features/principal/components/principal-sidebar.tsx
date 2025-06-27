@@ -7,7 +7,6 @@ const data = {
       title: "Periods",
       url: "/principal/periods",
       icon: CalendarRange,
-      isActive: true,
       items: [
         {
           title: "Create",
