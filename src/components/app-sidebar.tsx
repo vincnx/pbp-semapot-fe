@@ -55,7 +55,12 @@ const data = {
       title: "Students",
       url: "/principal/students",
       icon: UsersRound,
-      items: [],
+      items: [
+        {
+          title: "Create",
+          url: "/principal/students/create",
+        },
+      ],
     },
   ],
   navSecondary: [
