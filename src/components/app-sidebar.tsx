@@ -29,7 +29,7 @@ const data = {
       items: [
         {
           title: "Create",
-          url: "/principal/periods",
+          url: "/principal/periods/create",
         },
       ],
     },

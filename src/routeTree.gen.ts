@@ -13,7 +13,9 @@ import { Route as _sidebarLayoutRouteImport } from './routes/__sidebarLayout'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as _sidebarLayoutPrincipalPeriodsRouteRouteImport } from './routes/__sidebarLayout/principal/periods/route'
 import { Route as _sidebarLayoutPrincipalPeriodsIndexRouteImport } from './routes/__sidebarLayout/principal/periods/index'
+import { Route as _sidebarLayoutPrincipalPeriodsCreateRouteImport } from './routes/__sidebarLayout/principal/periods/create'
 
 const _sidebarLayoutRoute = _sidebarLayoutRouteImport.update({
   id: '/__sidebarLayout',
@@ -34,23 +36,38 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const _sidebarLayoutPrincipalPeriodsRouteRoute =
+  _sidebarLayoutPrincipalPeriodsRouteRouteImport.update({
+    id: '/principal/periods',
+    path: '/principal/periods',
+    getParentRoute: () => _sidebarLayoutRoute,
+  } as any)
 const _sidebarLayoutPrincipalPeriodsIndexRoute =
   _sidebarLayoutPrincipalPeriodsIndexRouteImport.update({
-    id: '/principal/periods/',
-    path: '/principal/periods/',
-    getParentRoute: () => _sidebarLayoutRoute,
+    id: '/',
+    path: '/',
+    getParentRoute: () => _sidebarLayoutPrincipalPeriodsRouteRoute,
+  } as any)
+const _sidebarLayoutPrincipalPeriodsCreateRoute =
+  _sidebarLayoutPrincipalPeriodsCreateRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => _sidebarLayoutPrincipalPeriodsRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
-  '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
+  '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+  '/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
+  '/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRoutesById {
@@ -59,19 +76,34 @@ export interface FileRoutesById {
   '/auth': typeof AuthRouteRouteWithChildren
   '/__sidebarLayout': typeof _sidebarLayoutRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/__sidebarLayout/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+  '/__sidebarLayout/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   '/__sidebarLayout/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/auth/login' | '/principal/periods'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/auth/login'
+    | '/principal/periods'
+    | '/principal/periods/create'
+    | '/principal/periods/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/auth/login' | '/principal/periods'
+  to:
+    | '/'
+    | '/auth'
+    | '/auth/login'
+    | '/principal/periods/create'
+    | '/principal/periods'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/__sidebarLayout'
     | '/auth/login'
+    | '/__sidebarLayout/principal/periods'
+    | '/__sidebarLayout/principal/periods/create'
     | '/__sidebarLayout/principal/periods/'
   fileRoutesById: FileRoutesById
 }
@@ -111,12 +143,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
-    '/__sidebarLayout/principal/periods/': {
-      id: '/__sidebarLayout/principal/periods/'
+    '/__sidebarLayout/principal/periods': {
+      id: '/__sidebarLayout/principal/periods'
       path: '/principal/periods'
       fullPath: '/principal/periods'
-      preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsIndexRouteImport
+      preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRouteImport
       parentRoute: typeof _sidebarLayoutRoute
+    }
+    '/__sidebarLayout/principal/periods/': {
+      id: '/__sidebarLayout/principal/periods/'
+      path: '/'
+      fullPath: '/principal/periods/'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsIndexRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRoute
+    }
+    '/__sidebarLayout/principal/periods/create': {
+      id: '/__sidebarLayout/principal/periods/create'
+      path: '/create'
+      fullPath: '/principal/periods/create'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsCreateRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRoute
     }
   }
 }
@@ -133,13 +179,31 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
-interface _sidebarLayoutRouteChildren {
+interface _sidebarLayoutPrincipalPeriodsRouteRouteChildren {
+  _sidebarLayoutPrincipalPeriodsCreateRoute: typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   _sidebarLayoutPrincipalPeriodsIndexRoute: typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 
+const _sidebarLayoutPrincipalPeriodsRouteRouteChildren: _sidebarLayoutPrincipalPeriodsRouteRouteChildren =
+  {
+    _sidebarLayoutPrincipalPeriodsCreateRoute:
+      _sidebarLayoutPrincipalPeriodsCreateRoute,
+    _sidebarLayoutPrincipalPeriodsIndexRoute:
+      _sidebarLayoutPrincipalPeriodsIndexRoute,
+  }
+
+const _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren =
+  _sidebarLayoutPrincipalPeriodsRouteRoute._addFileChildren(
+    _sidebarLayoutPrincipalPeriodsRouteRouteChildren,
+  )
+
+interface _sidebarLayoutRouteChildren {
+  _sidebarLayoutPrincipalPeriodsRouteRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+}
+
 const _sidebarLayoutRouteChildren: _sidebarLayoutRouteChildren = {
-  _sidebarLayoutPrincipalPeriodsIndexRoute:
-    _sidebarLayoutPrincipalPeriodsIndexRoute,
+  _sidebarLayoutPrincipalPeriodsRouteRoute:
+    _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren,
 }
 
 const _sidebarLayoutRouteWithChildren = _sidebarLayoutRoute._addFileChildren(
