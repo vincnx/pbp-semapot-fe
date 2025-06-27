@@ -3,6 +3,7 @@ import { DataTableColumnHeader } from "@/components/data-table-col-header";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { Period } from "@/types/period.type";
+import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Period>[] = [
@@ -34,16 +35,29 @@ export const columns: ColumnDef<Period>[] = [
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const navigate = useNavigate();
       // TODO: edit this callback
+      const onDetail = () => {
+        console.log("detail clicked");
+      };
       const onEdit = () => {
-        console.log("edit clicked");
+        navigate({
+          to: "/principal/periods/$periodId/edit",
+          params: { periodId: row.original.id },
+        });
       };
       const onDelete = () => {
         console.log("delete clicked");
       };
 
-      return <DataTableActions editFn={onEdit} deleteFn={onDelete} />;
+      return (
+        <DataTableActions
+          detailFn={onDetail}
+          editFn={onEdit}
+          deleteFn={onDelete}
+        />
+      );
     },
   },
 ];
