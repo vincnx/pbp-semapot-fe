@@ -10,16 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeacherRouteRouteImport } from './routes/teacher/route'
+import { Route as StudentRouteRouteImport } from './routes/student/route'
 import { Route as PrincipalRouteRouteImport } from './routes/principal/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as TeacherReportsRouteRouteImport } from './routes/teacher/reports/route'
+import { Route as StudentReportsRouteRouteImport } from './routes/student/reports/route'
 import { Route as PrincipalStudentsRouteRouteImport } from './routes/principal/students/route'
 import { Route as PrincipalPeriodsRouteRouteImport } from './routes/principal/periods/route'
 import { Route as PrincipalCoursesRouteRouteImport } from './routes/principal/courses/route'
 import { Route as PrincipalClassesRouteRouteImport } from './routes/principal/classes/route'
 import { Route as TeacherReportsIndexRouteImport } from './routes/teacher/reports/index'
+import { Route as StudentReportsIndexRouteImport } from './routes/student/reports/index'
 import { Route as PrincipalStudentsIndexRouteImport } from './routes/principal/students/index'
 import { Route as PrincipalPeriodsIndexRouteImport } from './routes/principal/periods/index'
 import { Route as PrincipalCoursesIndexRouteImport } from './routes/principal/courses/index'
@@ -32,6 +35,11 @@ import { Route as PrincipalClassesCreateRouteImport } from './routes/principal/c
 const TeacherRouteRoute = TeacherRouteRouteImport.update({
   id: '/teacher',
   path: '/teacher',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentRouteRoute = StudentRouteRouteImport.update({
+  id: '/student',
+  path: '/student',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrincipalRouteRoute = PrincipalRouteRouteImport.update({
@@ -59,6 +67,11 @@ const TeacherReportsRouteRoute = TeacherReportsRouteRouteImport.update({
   path: '/reports',
   getParentRoute: () => TeacherRouteRoute,
 } as any)
+const StudentReportsRouteRoute = StudentReportsRouteRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => StudentRouteRoute,
+} as any)
 const PrincipalStudentsRouteRoute = PrincipalStudentsRouteRouteImport.update({
   id: '/students',
   path: '/students',
@@ -83,6 +96,11 @@ const TeacherReportsIndexRoute = TeacherReportsIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => TeacherReportsRouteRoute,
+} as any)
+const StudentReportsIndexRoute = StudentReportsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudentReportsRouteRoute,
 } as any)
 const PrincipalStudentsIndexRoute = PrincipalStudentsIndexRouteImport.update({
   id: '/',
@@ -129,11 +147,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/principal': typeof PrincipalRouteRouteWithChildren
+  '/student': typeof StudentRouteRouteWithChildren
   '/teacher': typeof TeacherRouteRouteWithChildren
   '/principal/classes': typeof PrincipalClassesRouteRouteWithChildren
   '/principal/courses': typeof PrincipalCoursesRouteRouteWithChildren
   '/principal/periods': typeof PrincipalPeriodsRouteRouteWithChildren
   '/principal/students': typeof PrincipalStudentsRouteRouteWithChildren
+  '/student/reports': typeof StudentReportsRouteRouteWithChildren
   '/teacher/reports': typeof TeacherReportsRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
@@ -144,12 +164,14 @@ export interface FileRoutesByFullPath {
   '/principal/courses/': typeof PrincipalCoursesIndexRoute
   '/principal/periods/': typeof PrincipalPeriodsIndexRoute
   '/principal/students/': typeof PrincipalStudentsIndexRoute
+  '/student/reports/': typeof StudentReportsIndexRoute
   '/teacher/reports/': typeof TeacherReportsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/principal': typeof PrincipalRouteRouteWithChildren
+  '/student': typeof StudentRouteRouteWithChildren
   '/teacher': typeof TeacherRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
@@ -160,6 +182,7 @@ export interface FileRoutesByTo {
   '/principal/courses': typeof PrincipalCoursesIndexRoute
   '/principal/periods': typeof PrincipalPeriodsIndexRoute
   '/principal/students': typeof PrincipalStudentsIndexRoute
+  '/student/reports': typeof StudentReportsIndexRoute
   '/teacher/reports': typeof TeacherReportsIndexRoute
 }
 export interface FileRoutesById {
@@ -167,11 +190,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/principal': typeof PrincipalRouteRouteWithChildren
+  '/student': typeof StudentRouteRouteWithChildren
   '/teacher': typeof TeacherRouteRouteWithChildren
   '/principal/classes': typeof PrincipalClassesRouteRouteWithChildren
   '/principal/courses': typeof PrincipalCoursesRouteRouteWithChildren
   '/principal/periods': typeof PrincipalPeriodsRouteRouteWithChildren
   '/principal/students': typeof PrincipalStudentsRouteRouteWithChildren
+  '/student/reports': typeof StudentReportsRouteRouteWithChildren
   '/teacher/reports': typeof TeacherReportsRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
@@ -182,6 +207,7 @@ export interface FileRoutesById {
   '/principal/courses/': typeof PrincipalCoursesIndexRoute
   '/principal/periods/': typeof PrincipalPeriodsIndexRoute
   '/principal/students/': typeof PrincipalStudentsIndexRoute
+  '/student/reports/': typeof StudentReportsIndexRoute
   '/teacher/reports/': typeof TeacherReportsIndexRoute
 }
 export interface FileRouteTypes {
@@ -190,11 +216,13 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/principal'
+    | '/student'
     | '/teacher'
     | '/principal/classes'
     | '/principal/courses'
     | '/principal/periods'
     | '/principal/students'
+    | '/student/reports'
     | '/teacher/reports'
     | '/auth/login'
     | '/principal/classes/create'
@@ -205,12 +233,14 @@ export interface FileRouteTypes {
     | '/principal/courses/'
     | '/principal/periods/'
     | '/principal/students/'
+    | '/student/reports/'
     | '/teacher/reports/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/principal'
+    | '/student'
     | '/teacher'
     | '/auth/login'
     | '/principal/classes/create'
@@ -221,17 +251,20 @@ export interface FileRouteTypes {
     | '/principal/courses'
     | '/principal/periods'
     | '/principal/students'
+    | '/student/reports'
     | '/teacher/reports'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/principal'
+    | '/student'
     | '/teacher'
     | '/principal/classes'
     | '/principal/courses'
     | '/principal/periods'
     | '/principal/students'
+    | '/student/reports'
     | '/teacher/reports'
     | '/auth/login'
     | '/principal/classes/create'
@@ -242,6 +275,7 @@ export interface FileRouteTypes {
     | '/principal/courses/'
     | '/principal/periods/'
     | '/principal/students/'
+    | '/student/reports/'
     | '/teacher/reports/'
   fileRoutesById: FileRoutesById
 }
@@ -249,6 +283,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
   PrincipalRouteRoute: typeof PrincipalRouteRouteWithChildren
+  StudentRouteRoute: typeof StudentRouteRouteWithChildren
   TeacherRouteRoute: typeof TeacherRouteRouteWithChildren
 }
 
@@ -259,6 +294,13 @@ declare module '@tanstack/react-router' {
       path: '/teacher'
       fullPath: '/teacher'
       preLoaderRoute: typeof TeacherRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student': {
+      id: '/student'
+      path: '/student'
+      fullPath: '/student'
+      preLoaderRoute: typeof StudentRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/principal': {
@@ -296,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TeacherReportsRouteRouteImport
       parentRoute: typeof TeacherRouteRoute
     }
+    '/student/reports': {
+      id: '/student/reports'
+      path: '/reports'
+      fullPath: '/student/reports'
+      preLoaderRoute: typeof StudentReportsRouteRouteImport
+      parentRoute: typeof StudentRouteRoute
+    }
     '/principal/students': {
       id: '/principal/students'
       path: '/students'
@@ -330,6 +379,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/teacher/reports/'
       preLoaderRoute: typeof TeacherReportsIndexRouteImport
       parentRoute: typeof TeacherReportsRouteRoute
+    }
+    '/student/reports/': {
+      id: '/student/reports/'
+      path: '/'
+      fullPath: '/student/reports/'
+      preLoaderRoute: typeof StudentReportsIndexRouteImport
+      parentRoute: typeof StudentReportsRouteRoute
     }
     '/principal/students/': {
       id: '/principal/students/'
@@ -481,6 +537,29 @@ const PrincipalRouteRouteWithChildren = PrincipalRouteRoute._addFileChildren(
   PrincipalRouteRouteChildren,
 )
 
+interface StudentReportsRouteRouteChildren {
+  StudentReportsIndexRoute: typeof StudentReportsIndexRoute
+}
+
+const StudentReportsRouteRouteChildren: StudentReportsRouteRouteChildren = {
+  StudentReportsIndexRoute: StudentReportsIndexRoute,
+}
+
+const StudentReportsRouteRouteWithChildren =
+  StudentReportsRouteRoute._addFileChildren(StudentReportsRouteRouteChildren)
+
+interface StudentRouteRouteChildren {
+  StudentReportsRouteRoute: typeof StudentReportsRouteRouteWithChildren
+}
+
+const StudentRouteRouteChildren: StudentRouteRouteChildren = {
+  StudentReportsRouteRoute: StudentReportsRouteRouteWithChildren,
+}
+
+const StudentRouteRouteWithChildren = StudentRouteRoute._addFileChildren(
+  StudentRouteRouteChildren,
+)
+
 interface TeacherReportsRouteRouteChildren {
   TeacherReportsIndexRoute: typeof TeacherReportsIndexRoute
 }
@@ -508,6 +587,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
   PrincipalRouteRoute: PrincipalRouteRouteWithChildren,
+  StudentRouteRoute: StudentRouteRouteWithChildren,
   TeacherRouteRoute: TeacherRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
