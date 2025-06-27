@@ -14,6 +14,9 @@ import { Route as StudentRouteRouteImport } from './routes/student/route'
 import { Route as PrincipalRouteRouteImport } from './routes/principal/route'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TeacherIndexRouteImport } from './routes/teacher/index'
+import { Route as StudentIndexRouteImport } from './routes/student/index'
+import { Route as PrincipalIndexRouteImport } from './routes/principal/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as TeacherReportsRouteRouteImport } from './routes/teacher/reports/route'
 import { Route as StudentReportsRouteRouteImport } from './routes/student/reports/route'
@@ -56,6 +59,21 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherIndexRoute = TeacherIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => TeacherRouteRoute,
+} as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudentRouteRoute,
+} as any)
+const PrincipalIndexRoute = PrincipalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PrincipalRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
@@ -156,6 +174,9 @@ export interface FileRoutesByFullPath {
   '/student/reports': typeof StudentReportsRouteRouteWithChildren
   '/teacher/reports': typeof TeacherReportsRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal/': typeof PrincipalIndexRoute
+  '/student/': typeof StudentIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
   '/principal/courses/create': typeof PrincipalCoursesCreateRoute
   '/principal/periods/create': typeof PrincipalPeriodsCreateRoute
@@ -170,10 +191,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
-  '/principal': typeof PrincipalRouteRouteWithChildren
-  '/student': typeof StudentRouteRouteWithChildren
-  '/teacher': typeof TeacherRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal': typeof PrincipalIndexRoute
+  '/student': typeof StudentIndexRoute
+  '/teacher': typeof TeacherIndexRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
   '/principal/courses/create': typeof PrincipalCoursesCreateRoute
   '/principal/periods/create': typeof PrincipalPeriodsCreateRoute
@@ -199,6 +220,9 @@ export interface FileRoutesById {
   '/student/reports': typeof StudentReportsRouteRouteWithChildren
   '/teacher/reports': typeof TeacherReportsRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal/': typeof PrincipalIndexRoute
+  '/student/': typeof StudentIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
   '/principal/classes/create': typeof PrincipalClassesCreateRoute
   '/principal/courses/create': typeof PrincipalCoursesCreateRoute
   '/principal/periods/create': typeof PrincipalPeriodsCreateRoute
@@ -225,6 +249,9 @@ export interface FileRouteTypes {
     | '/student/reports'
     | '/teacher/reports'
     | '/auth/login'
+    | '/principal/'
+    | '/student/'
+    | '/teacher/'
     | '/principal/classes/create'
     | '/principal/courses/create'
     | '/principal/periods/create'
@@ -239,10 +266,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/auth/login'
     | '/principal'
     | '/student'
     | '/teacher'
-    | '/auth/login'
     | '/principal/classes/create'
     | '/principal/courses/create'
     | '/principal/periods/create'
@@ -267,6 +294,9 @@ export interface FileRouteTypes {
     | '/student/reports'
     | '/teacher/reports'
     | '/auth/login'
+    | '/principal/'
+    | '/student/'
+    | '/teacher/'
     | '/principal/classes/create'
     | '/principal/courses/create'
     | '/principal/periods/create'
@@ -323,6 +353,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/teacher/': {
+      id: '/teacher/'
+      path: '/'
+      fullPath: '/teacher/'
+      preLoaderRoute: typeof TeacherIndexRouteImport
+      parentRoute: typeof TeacherRouteRoute
+    }
+    '/student/': {
+      id: '/student/'
+      path: '/'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof StudentRouteRoute
+    }
+    '/principal/': {
+      id: '/principal/'
+      path: '/'
+      fullPath: '/principal/'
+      preLoaderRoute: typeof PrincipalIndexRouteImport
+      parentRoute: typeof PrincipalRouteRoute
     }
     '/auth/login': {
       id: '/auth/login'
@@ -524,6 +575,7 @@ interface PrincipalRouteRouteChildren {
   PrincipalCoursesRouteRoute: typeof PrincipalCoursesRouteRouteWithChildren
   PrincipalPeriodsRouteRoute: typeof PrincipalPeriodsRouteRouteWithChildren
   PrincipalStudentsRouteRoute: typeof PrincipalStudentsRouteRouteWithChildren
+  PrincipalIndexRoute: typeof PrincipalIndexRoute
 }
 
 const PrincipalRouteRouteChildren: PrincipalRouteRouteChildren = {
@@ -531,6 +583,7 @@ const PrincipalRouteRouteChildren: PrincipalRouteRouteChildren = {
   PrincipalCoursesRouteRoute: PrincipalCoursesRouteRouteWithChildren,
   PrincipalPeriodsRouteRoute: PrincipalPeriodsRouteRouteWithChildren,
   PrincipalStudentsRouteRoute: PrincipalStudentsRouteRouteWithChildren,
+  PrincipalIndexRoute: PrincipalIndexRoute,
 }
 
 const PrincipalRouteRouteWithChildren = PrincipalRouteRoute._addFileChildren(
@@ -550,10 +603,12 @@ const StudentReportsRouteRouteWithChildren =
 
 interface StudentRouteRouteChildren {
   StudentReportsRouteRoute: typeof StudentReportsRouteRouteWithChildren
+  StudentIndexRoute: typeof StudentIndexRoute
 }
 
 const StudentRouteRouteChildren: StudentRouteRouteChildren = {
   StudentReportsRouteRoute: StudentReportsRouteRouteWithChildren,
+  StudentIndexRoute: StudentIndexRoute,
 }
 
 const StudentRouteRouteWithChildren = StudentRouteRoute._addFileChildren(
@@ -573,10 +628,12 @@ const TeacherReportsRouteRouteWithChildren =
 
 interface TeacherRouteRouteChildren {
   TeacherReportsRouteRoute: typeof TeacherReportsRouteRouteWithChildren
+  TeacherIndexRoute: typeof TeacherIndexRoute
 }
 
 const TeacherRouteRouteChildren: TeacherRouteRouteChildren = {
   TeacherReportsRouteRoute: TeacherReportsRouteRouteWithChildren,
+  TeacherIndexRoute: TeacherIndexRoute,
 }
 
 const TeacherRouteRouteWithChildren = TeacherRouteRoute._addFileChildren(
