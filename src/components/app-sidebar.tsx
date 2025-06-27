@@ -1,4 +1,4 @@
-import { CalendarRange, LifeBuoy, School, Send, Settings2 } from "lucide-react";
+import { BookIcon, CalendarRange, LifeBuoy, School, Send } from "lucide-react";
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
@@ -34,26 +34,14 @@ const data = {
       ],
     },
     {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
+      title: "Courses",
+      url: "/principal/courses",
+      icon: BookIcon,
       items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
+        // {
+        //   title: "Create",
+        //   url: "/principal/courses/create",
+        // },
       ],
     },
   ],
