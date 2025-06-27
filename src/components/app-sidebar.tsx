@@ -67,7 +67,12 @@ const data = {
       title: "Classes",
       url: "/principal/classes",
       icon: School2,
-      items: [],
+      items: [
+        {
+          title: "Create",
+          url: "/principal/classes/create",
+        },
+      ],
     },
   ],
   navSecondary: [
