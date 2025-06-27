@@ -13,8 +13,10 @@ import { Route as _sidebarLayoutRouteImport } from './routes/__sidebarLayout'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as _sidebarLayoutPrincipalStudentsRouteRouteImport } from './routes/__sidebarLayout/principal/students/route'
 import { Route as _sidebarLayoutPrincipalPeriodsRouteRouteImport } from './routes/__sidebarLayout/principal/periods/route'
 import { Route as _sidebarLayoutPrincipalCoursesRouteRouteImport } from './routes/__sidebarLayout/principal/courses/route'
+import { Route as _sidebarLayoutPrincipalStudentsIndexRouteImport } from './routes/__sidebarLayout/principal/students/index'
 import { Route as _sidebarLayoutPrincipalPeriodsIndexRouteImport } from './routes/__sidebarLayout/principal/periods/index'
 import { Route as _sidebarLayoutPrincipalCoursesIndexRouteImport } from './routes/__sidebarLayout/principal/courses/index'
 import { Route as _sidebarLayoutPrincipalPeriodsCreateRouteImport } from './routes/__sidebarLayout/principal/periods/create'
@@ -39,6 +41,12 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const _sidebarLayoutPrincipalStudentsRouteRoute =
+  _sidebarLayoutPrincipalStudentsRouteRouteImport.update({
+    id: '/principal/students',
+    path: '/principal/students',
+    getParentRoute: () => _sidebarLayoutRoute,
+  } as any)
 const _sidebarLayoutPrincipalPeriodsRouteRoute =
   _sidebarLayoutPrincipalPeriodsRouteRouteImport.update({
     id: '/principal/periods',
@@ -50,6 +58,12 @@ const _sidebarLayoutPrincipalCoursesRouteRoute =
     id: '/principal/courses',
     path: '/principal/courses',
     getParentRoute: () => _sidebarLayoutRoute,
+  } as any)
+const _sidebarLayoutPrincipalStudentsIndexRoute =
+  _sidebarLayoutPrincipalStudentsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => _sidebarLayoutPrincipalStudentsRouteRoute,
   } as any)
 const _sidebarLayoutPrincipalPeriodsIndexRoute =
   _sidebarLayoutPrincipalPeriodsIndexRouteImport.update({
@@ -82,10 +96,12 @@ export interface FileRoutesByFullPath {
   '/auth/login': typeof AuthLoginRoute
   '/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+  '/principal/students': typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
   '/principal/courses/create': typeof _sidebarLayoutPrincipalCoursesCreateRoute
   '/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   '/principal/courses/': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
+  '/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -95,6 +111,7 @@ export interface FileRoutesByTo {
   '/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   '/principal/courses': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
+  '/principal/students': typeof _sidebarLayoutPrincipalStudentsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -104,10 +121,12 @@ export interface FileRoutesById {
   '/auth/login': typeof AuthLoginRoute
   '/__sidebarLayout/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/__sidebarLayout/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+  '/__sidebarLayout/principal/students': typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
   '/__sidebarLayout/principal/courses/create': typeof _sidebarLayoutPrincipalCoursesCreateRoute
   '/__sidebarLayout/principal/periods/create': typeof _sidebarLayoutPrincipalPeriodsCreateRoute
   '/__sidebarLayout/principal/courses/': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/__sidebarLayout/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
+  '/__sidebarLayout/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -117,10 +136,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/principal/courses'
     | '/principal/periods'
+    | '/principal/students'
     | '/principal/courses/create'
     | '/principal/periods/create'
     | '/principal/courses/'
     | '/principal/periods/'
+    | '/principal/students/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -130,6 +151,7 @@ export interface FileRouteTypes {
     | '/principal/periods/create'
     | '/principal/courses'
     | '/principal/periods'
+    | '/principal/students'
   id:
     | '__root__'
     | '/'
@@ -138,10 +160,12 @@ export interface FileRouteTypes {
     | '/auth/login'
     | '/__sidebarLayout/principal/courses'
     | '/__sidebarLayout/principal/periods'
+    | '/__sidebarLayout/principal/students'
     | '/__sidebarLayout/principal/courses/create'
     | '/__sidebarLayout/principal/periods/create'
     | '/__sidebarLayout/principal/courses/'
     | '/__sidebarLayout/principal/periods/'
+    | '/__sidebarLayout/principal/students/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -180,6 +204,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/__sidebarLayout/principal/students': {
+      id: '/__sidebarLayout/principal/students'
+      path: '/principal/students'
+      fullPath: '/principal/students'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalStudentsRouteRouteImport
+      parentRoute: typeof _sidebarLayoutRoute
+    }
     '/__sidebarLayout/principal/periods': {
       id: '/__sidebarLayout/principal/periods'
       path: '/principal/periods'
@@ -193,6 +224,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/principal/courses'
       preLoaderRoute: typeof _sidebarLayoutPrincipalCoursesRouteRouteImport
       parentRoute: typeof _sidebarLayoutRoute
+    }
+    '/__sidebarLayout/principal/students/': {
+      id: '/__sidebarLayout/principal/students/'
+      path: '/'
+      fullPath: '/principal/students/'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalStudentsIndexRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalStudentsRouteRoute
     }
     '/__sidebarLayout/principal/periods/': {
       id: '/__sidebarLayout/principal/periods/'
@@ -273,9 +311,25 @@ const _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren =
     _sidebarLayoutPrincipalPeriodsRouteRouteChildren,
   )
 
+interface _sidebarLayoutPrincipalStudentsRouteRouteChildren {
+  _sidebarLayoutPrincipalStudentsIndexRoute: typeof _sidebarLayoutPrincipalStudentsIndexRoute
+}
+
+const _sidebarLayoutPrincipalStudentsRouteRouteChildren: _sidebarLayoutPrincipalStudentsRouteRouteChildren =
+  {
+    _sidebarLayoutPrincipalStudentsIndexRoute:
+      _sidebarLayoutPrincipalStudentsIndexRoute,
+  }
+
+const _sidebarLayoutPrincipalStudentsRouteRouteWithChildren =
+  _sidebarLayoutPrincipalStudentsRouteRoute._addFileChildren(
+    _sidebarLayoutPrincipalStudentsRouteRouteChildren,
+  )
+
 interface _sidebarLayoutRouteChildren {
   _sidebarLayoutPrincipalCoursesRouteRoute: typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   _sidebarLayoutPrincipalPeriodsRouteRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
+  _sidebarLayoutPrincipalStudentsRouteRoute: typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
 }
 
 const _sidebarLayoutRouteChildren: _sidebarLayoutRouteChildren = {
@@ -283,6 +337,8 @@ const _sidebarLayoutRouteChildren: _sidebarLayoutRouteChildren = {
     _sidebarLayoutPrincipalCoursesRouteRouteWithChildren,
   _sidebarLayoutPrincipalPeriodsRouteRoute:
     _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren,
+  _sidebarLayoutPrincipalStudentsRouteRoute:
+    _sidebarLayoutPrincipalStudentsRouteRouteWithChildren,
 }
 
 const _sidebarLayoutRouteWithChildren = _sidebarLayoutRoute._addFileChildren(
