@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as _sidebarLayoutRouteImport } from './routes/__sidebarLayout'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
+import { Route as _sidebarLayoutPrincipalPeriodsIndexRouteImport } from './routes/__sidebarLayout/principal/periods/index'
 
+const _sidebarLayoutRoute = _sidebarLayoutRouteImport.update({
+  id: '/__sidebarLayout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRouteRoute = AuthRouteRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -28,38 +34,62 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => AuthRouteRoute,
 } as any)
+const _sidebarLayoutPrincipalPeriodsIndexRoute =
+  _sidebarLayoutPrincipalPeriodsIndexRouteImport.update({
+    id: '/principal/periods/',
+    path: '/principal/periods/',
+    getParentRoute: () => _sidebarLayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
+  '/__sidebarLayout': typeof _sidebarLayoutRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/__sidebarLayout/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/auth/login'
+  fullPaths: '/' | '/auth' | '/auth/login' | '/principal/periods'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/auth/login'
-  id: '__root__' | '/' | '/auth' | '/auth/login'
+  to: '/' | '/auth' | '/auth/login' | '/principal/periods'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/__sidebarLayout'
+    | '/auth/login'
+    | '/__sidebarLayout/principal/periods/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  _sidebarLayoutRoute: typeof _sidebarLayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/__sidebarLayout': {
+      id: '/__sidebarLayout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof _sidebarLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -81,6 +111,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof AuthRouteRoute
     }
+    '/__sidebarLayout/principal/periods/': {
+      id: '/__sidebarLayout/principal/periods/'
+      path: '/principal/periods'
+      fullPath: '/principal/periods'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsIndexRouteImport
+      parentRoute: typeof _sidebarLayoutRoute
+    }
   }
 }
 
@@ -96,9 +133,23 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface _sidebarLayoutRouteChildren {
+  _sidebarLayoutPrincipalPeriodsIndexRoute: typeof _sidebarLayoutPrincipalPeriodsIndexRoute
+}
+
+const _sidebarLayoutRouteChildren: _sidebarLayoutRouteChildren = {
+  _sidebarLayoutPrincipalPeriodsIndexRoute:
+    _sidebarLayoutPrincipalPeriodsIndexRoute,
+}
+
+const _sidebarLayoutRouteWithChildren = _sidebarLayoutRoute._addFileChildren(
+  _sidebarLayoutRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  _sidebarLayoutRoute: _sidebarLayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -191,3 +191,12 @@ code {
     @apply bg-background mx-auto w-full max-w-6xl rounded-xl p-4;
   }
 }
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
