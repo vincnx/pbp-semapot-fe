@@ -58,7 +58,7 @@ const LoginForm = () => {
           )}
         />
         <Button
-          className="bg-accent-foreground hover:bg-accent-foreground/80 mt-2 w-full border-3"
+          className="bg-accent-foreground hover:bg-accent-foreground/80 mt-2 w-full border-2"
           type="submit"
         >
           Submit

@@ -263,7 +263,7 @@ function SidebarTrigger({
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       size="icon"
-      className={cn("bg-accent hover:bg-accent/80 size-7", className)}
+      className={cn("bg-accent hover:bg-accent/80 size-7 border-2", className)}
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
