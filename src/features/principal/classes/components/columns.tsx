@@ -25,7 +25,7 @@ export const columns: ColumnDef<Class>[] = [
   },
   {
     id: "class_teacher",
-    accessorFn: (row) => row.class_teacher.name,
+    accessorFn: (row) => row.user.name,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Class Teacher" />
     ),
