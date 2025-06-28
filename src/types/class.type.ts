@@ -1,9 +1,9 @@
 import type { User } from "./user.type";
 
 export interface Class {
-  id: string;
-  grade: string;
+  id: number;
+  grade: number;
   code: string;
-  year: string;
+  year: number;
   user: User;
 }
