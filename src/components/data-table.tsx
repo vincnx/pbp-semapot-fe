@@ -39,6 +39,7 @@ import {
   Trash,
 } from "lucide-react";
 import { useState } from "react";
+import Alert from "./alert";
 import {
   DropdownMenuCheckboxItem,
   DropdownMenuSeparator,
@@ -305,29 +306,27 @@ export function DataTableActions({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        {detailFn ? (
+        {detailFn && (
           <DropdownMenuItem onClick={detailFn}>
             <FileSearch />
             Detail
           </DropdownMenuItem>
-        ) : (
-          ""
         )}
-        {editFn ? (
+        {editFn && (
           <DropdownMenuItem onClick={editFn}>
             <Pencil />
             Edit
           </DropdownMenuItem>
-        ) : (
-          ""
         )}
-        {deleteFn ? (
-          <DropdownMenuItem onClick={deleteFn}>
-            <Trash />
-            Delete
+        {deleteFn && (
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+            <Alert onConfirm={deleteFn}>
+              <div className="flex items-center">
+                <Trash className="mr-2 h-4 w-4" />
+                Delete
+              </div>
+            </Alert>
           </DropdownMenuItem>
-        ) : (
-          ""
         )}
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,8 +1,10 @@
 import { DataTableActions } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-col-header";
+import { toast } from "@/components/ui/sonner";
 import type { Class } from "@/types/class.type";
 import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
+import { useDeleteClass } from "../../hooks/useDeleteClass";
 
 export const columns: ColumnDef<Class>[] = [
   {
@@ -35,7 +37,8 @@ export const columns: ColumnDef<Class>[] = [
     id: "actions",
     cell: ({ row }) => {
       const navigate = useNavigate();
-      // TODO: edit this callback
+      const { mutate: deleteClass } = useDeleteClass();
+
       const onDetail = () => {
         console.log("detail clicked");
       };
@@ -46,7 +49,14 @@ export const columns: ColumnDef<Class>[] = [
         });
       };
       const onDelete = () => {
-        console.log("delete clicked");
+        deleteClass(row.original.id.toString(), {
+          onSuccess: () => {
+            toast({
+              title: "Success",
+              description: "The class has been deleted successfully",
+            });
+          },
+        });
       };
 
       return (
