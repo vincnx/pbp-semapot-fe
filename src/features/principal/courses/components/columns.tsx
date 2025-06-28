@@ -1,6 +1,7 @@
 import { DataTableActions } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-col-header";
 import type { Course } from "@/types/course.type";
+import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
 
 export const columns: ColumnDef<Course>[] = [
@@ -12,13 +13,17 @@ export const columns: ColumnDef<Course>[] = [
   },
   {
     id: "actions",
-    cell: () => {
-      // TODO: edit this callback
+    cell: ({ row }) => {
+      const navigate = useNavigate();
+
       const onDetail = () => {
         console.log("detail clicked");
       };
       const onEdit = () => {
-        console.log("edit clicked");
+        navigate({
+          to: "/principal/courses/$courseId/edit",
+          params: { courseId: row.original.id.toString() },
+        });
       };
       const onDelete = () => {
         console.log("delete clicked");
