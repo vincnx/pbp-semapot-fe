@@ -36,6 +36,7 @@ import { Route as _sidebarLayoutPrincipalPeriodsCreateRouteImport } from './rout
 import { Route as _sidebarLayoutPrincipalCoursesCreateRouteImport } from './routes/__sidebarLayout/principal/courses/create'
 import { Route as _sidebarLayoutPrincipalClassesCreateRouteImport } from './routes/__sidebarLayout/principal/classes/create'
 import { Route as _sidebarLayoutPrincipalPeriodsPeriodIdEditRouteImport } from './routes/__sidebarLayout/principal/periods/$periodId/edit'
+import { Route as _sidebarLayoutPrincipalClassesClassIdEditRouteImport } from './routes/__sidebarLayout/principal/classes/$classId/edit'
 
 const _sidebarLayoutRoute = _sidebarLayoutRouteImport.update({
   id: '/__sidebarLayout',
@@ -194,6 +195,12 @@ const _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute =
     path: '/$periodId/edit',
     getParentRoute: () => _sidebarLayoutPrincipalPeriodsRouteRoute,
   } as any)
+const _sidebarLayoutPrincipalClassesClassIdEditRoute =
+  _sidebarLayoutPrincipalClassesClassIdEditRouteImport.update({
+    id: '/$classId/edit',
+    path: '/$classId/edit',
+    getParentRoute: () => _sidebarLayoutPrincipalClassesRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
   '/student/reports/': typeof _sidebarLayoutStudentReportsIndexRoute
   '/teacher/reports/': typeof _sidebarLayoutTeacherReportsIndexRoute
+  '/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
   '/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
 }
 export interface FileRoutesByTo {
@@ -240,6 +248,7 @@ export interface FileRoutesByTo {
   '/principal/students': typeof _sidebarLayoutPrincipalStudentsIndexRoute
   '/student/reports': typeof _sidebarLayoutStudentReportsIndexRoute
   '/teacher/reports': typeof _sidebarLayoutTeacherReportsIndexRoute
+  '/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
   '/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
 }
 export interface FileRoutesById {
@@ -270,6 +279,7 @@ export interface FileRoutesById {
   '/__sidebarLayout/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
   '/__sidebarLayout/student/reports/': typeof _sidebarLayoutStudentReportsIndexRoute
   '/__sidebarLayout/teacher/reports/': typeof _sidebarLayoutTeacherReportsIndexRoute
+  '/__sidebarLayout/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
   '/__sidebarLayout/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
 }
 export interface FileRouteTypes {
@@ -300,6 +310,7 @@ export interface FileRouteTypes {
     | '/principal/students/'
     | '/student/reports/'
     | '/teacher/reports/'
+    | '/principal/classes/$classId/edit'
     | '/principal/periods/$periodId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -319,6 +330,7 @@ export interface FileRouteTypes {
     | '/principal/students'
     | '/student/reports'
     | '/teacher/reports'
+    | '/principal/classes/$classId/edit'
     | '/principal/periods/$periodId/edit'
   id:
     | '__root__'
@@ -348,6 +360,7 @@ export interface FileRouteTypes {
     | '/__sidebarLayout/principal/students/'
     | '/__sidebarLayout/student/reports/'
     | '/__sidebarLayout/teacher/reports/'
+    | '/__sidebarLayout/principal/classes/$classId/edit'
     | '/__sidebarLayout/principal/periods/$periodId/edit'
   fileRoutesById: FileRoutesById
 }
@@ -548,6 +561,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRouteImport
       parentRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRoute
     }
+    '/__sidebarLayout/principal/classes/$classId/edit': {
+      id: '/__sidebarLayout/principal/classes/$classId/edit'
+      path: '/$classId/edit'
+      fullPath: '/principal/classes/$classId/edit'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalClassesClassIdEditRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalClassesRouteRoute
+    }
   }
 }
 
@@ -566,6 +586,7 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
 interface _sidebarLayoutPrincipalClassesRouteRouteChildren {
   _sidebarLayoutPrincipalClassesCreateRoute: typeof _sidebarLayoutPrincipalClassesCreateRoute
   _sidebarLayoutPrincipalClassesIndexRoute: typeof _sidebarLayoutPrincipalClassesIndexRoute
+  _sidebarLayoutPrincipalClassesClassIdEditRoute: typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
 }
 
 const _sidebarLayoutPrincipalClassesRouteRouteChildren: _sidebarLayoutPrincipalClassesRouteRouteChildren =
@@ -574,6 +595,8 @@ const _sidebarLayoutPrincipalClassesRouteRouteChildren: _sidebarLayoutPrincipalC
       _sidebarLayoutPrincipalClassesCreateRoute,
     _sidebarLayoutPrincipalClassesIndexRoute:
       _sidebarLayoutPrincipalClassesIndexRoute,
+    _sidebarLayoutPrincipalClassesClassIdEditRoute:
+      _sidebarLayoutPrincipalClassesClassIdEditRoute,
   }
 
 const _sidebarLayoutPrincipalClassesRouteRouteWithChildren =

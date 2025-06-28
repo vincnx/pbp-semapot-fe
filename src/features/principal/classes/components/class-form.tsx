@@ -20,6 +20,7 @@ import {
 import { classSchema, type ClassSchema } from "@/schemas/class.schema";
 import type { Class } from "@/types/class.type";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useFetchTeachers } from "../../hooks/useFetchTeachers";
 
@@ -32,13 +33,18 @@ interface ClassFormProps {
 const ClassForm = ({ data, onSubmit, isLoading }: ClassFormProps) => {
   const form = useForm<ClassSchema>({
     resolver: zodResolver(classSchema),
-    defaultValues: {
-      grade: data?.grade,
-      code: data?.code,
-      year: data?.year,
-      user_id: data?.user.id,
-    },
   });
+
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        grade: data.grade,
+        code: data.code,
+        year: data.year,
+        user_id: data.user.id,
+      });
+    }
+  }, [data]);
 
   return (
     <Form {...form}>
@@ -96,7 +102,7 @@ const ClassForm = ({ data, onSubmit, isLoading }: ClassFormProps) => {
               <FormControl>
                 <UserSelect
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
+                  value={field.value?.toString()}
                 />
               </FormControl>
               <FormMessage />

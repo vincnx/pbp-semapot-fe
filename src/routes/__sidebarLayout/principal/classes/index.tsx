@@ -1,6 +1,6 @@
 import { ClassDataTable } from "@/features/principal/classes/components/class-datatable";
 import { columns } from "@/features/principal/classes/components/columns";
-import { useFetchClasses } from "@/hooks/requests/useFetchClasses";
+import { useFetchClasses } from "@/features/principal/hooks/useFetchClasses";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/__sidebarLayout/principal/classes/")({

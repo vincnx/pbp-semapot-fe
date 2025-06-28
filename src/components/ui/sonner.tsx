@@ -62,7 +62,7 @@ function Toast({ title, description, variant, button }: ToastProps) {
     <div className={cn(toastVariants({ variant }))}>
       <div className="flex flex-1 items-center">
         <div className="w-full">
-          <p className="text-primary text-lg font-bold">{title}</p>
+          <p className="text-primary font-bold">{title}</p>
           <p className="mt-1">{description}</p>
         </div>
       </div>
