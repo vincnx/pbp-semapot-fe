@@ -22,6 +22,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useAuthStore } from "@/stores/auth";
 
 interface NavMain {
   title: string;
@@ -117,6 +118,8 @@ export function AppSidebar({
   navSecondary,
   ...props
 }: AppSidebarProps) {
+  const { user } = useAuthStore();
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -145,7 +148,7 @@ export function AppSidebar({
         )}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user!} />
       </SidebarFooter>
     </Sidebar>
   );

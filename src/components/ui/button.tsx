@@ -39,20 +39,44 @@ function Button({
   className,
   variant,
   size,
+  isLoading,
   asChild = false,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    isLoading?: boolean;
   }) {
   const Comp = asChild ? Slot : "button";
 
   return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
+    <>
+      {isLoading ? (
+        <Comp
+          data-slot="button"
+          className={cn(
+            buttonVariants({ variant, size, className }),
+            "cursor-not-allowed opacity-70",
+          )}
+          {...props}
+          disabled
+        >
+          <span className="flex h-6 items-center gap-1">
+            <span className="invisible">p</span>
+            <span className="size-1.5 animate-[scale_1s_ease-in-out_infinite] rounded-full bg-current" />
+            <span className="size-1.5 animate-[scale_1s_ease-in-out_0.2s_infinite] rounded-full bg-current" />
+            <span className="size-1.5 animate-[scale_1s_ease-in-out_0.4s_infinite] rounded-full bg-current" />
+            <span className="invisible">p</span>
+          </span>
+        </Comp>
+      ) : (
+        <Comp
+          data-slot="button"
+          className={cn(buttonVariants({ variant, size, className }))}
+          {...props}
+        />
+      )}
+    </>
   );
 }
 

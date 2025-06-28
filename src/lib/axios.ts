@@ -1,5 +1,20 @@
-import type { AxiosInstance, CreateAxiosDefaults } from "axios";
+import { useAuthStore } from "@/stores/auth";
+import type {
+  AxiosInstance,
+  CreateAxiosDefaults,
+  InternalAxiosRequestConfig,
+} from "axios";
 import axios from "axios";
+
+function handleRequest(config: InternalAxiosRequestConfig) {
+  const token = useAuthStore.getState().token;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+}
 
 const axiosConfig: CreateAxiosDefaults = {
   baseURL: import.meta.env.VITE_API_URL,
@@ -10,3 +25,5 @@ const axiosConfig: CreateAxiosDefaults = {
 };
 
 export const axiosInstance: AxiosInstance = axios.create(axiosConfig);
+
+axiosInstance.interceptors.request.use(handleRequest);

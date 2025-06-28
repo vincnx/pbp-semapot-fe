@@ -1,17 +1,27 @@
-import { createFileRoute } from '@tanstack/react-router'
-import logo from '../logo.svg'
+import { useAuthStore } from "@/stores/auth";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import logo from "../logo.svg";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: App,
-})
+  loader: () => {
+    const { user } = useAuthStore.getState();
+    if (user?.role === "wali kelas") {
+      redirect({
+        to: "/teacher",
+        throw: true,
+      });
+    }
+  },
+});
 
 function App() {
   return (
     <div className="text-center">
-      <header className="min-h-screen flex flex-col items-center justify-center bg-[#282c34] text-white text-[calc(10px+2vmin)]">
+      <header className="flex min-h-screen flex-col items-center justify-center bg-[#282c34] text-[calc(10px+2vmin)] text-white">
         <img
           src={logo}
-          className="h-[40vmin] pointer-events-none animate-[spin_20s_linear_infinite]"
+          className="pointer-events-none h-[40vmin] animate-[spin_20s_linear_infinite]"
           alt="logo"
         />
         <p>
@@ -35,5 +45,5 @@ function App() {
         </a>
       </header>
     </div>
-  )
+  );
 }
