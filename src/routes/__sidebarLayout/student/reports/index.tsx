@@ -14,6 +14,7 @@ export const Route = createFileRoute("/__sidebarLayout/student/reports/")({
 async function getData(): Promise<Report[]> {
   return [
     {
+      id: "1",
       class: {
         code: "a",
         grade: "1",
