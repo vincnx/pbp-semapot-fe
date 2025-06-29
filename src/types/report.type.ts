@@ -1,4 +1,5 @@
 export interface Report {
+  id: string;
   student: {
     id: string;
     name: string;
@@ -12,4 +13,9 @@ export interface Report {
     year: string;
     semester: string;
   };
+  report_items?: {
+    course_name: string;
+    course_id: string;
+    grade?: number;
+  }[];
 }

@@ -35,6 +35,7 @@ import { Route as _sidebarLayoutPrincipalStudentsCreateRouteImport } from './rou
 import { Route as _sidebarLayoutPrincipalPeriodsCreateRouteImport } from './routes/__sidebarLayout/principal/periods/create'
 import { Route as _sidebarLayoutPrincipalCoursesCreateRouteImport } from './routes/__sidebarLayout/principal/courses/create'
 import { Route as _sidebarLayoutPrincipalClassesCreateRouteImport } from './routes/__sidebarLayout/principal/classes/create'
+import { Route as _sidebarLayoutTeacherReportsReportIdEditRouteImport } from './routes/__sidebarLayout/teacher/reports/$reportId/edit'
 import { Route as _sidebarLayoutPrincipalStudentsStudentIdEditRouteImport } from './routes/__sidebarLayout/principal/students/$studentId/edit'
 import { Route as _sidebarLayoutPrincipalPeriodsPeriodIdEditRouteImport } from './routes/__sidebarLayout/principal/periods/$periodId/edit'
 import { Route as _sidebarLayoutPrincipalCoursesCourseIdEditRouteImport } from './routes/__sidebarLayout/principal/courses/$courseId/edit'
@@ -191,6 +192,12 @@ const _sidebarLayoutPrincipalClassesCreateRoute =
     path: '/create',
     getParentRoute: () => _sidebarLayoutPrincipalClassesRouteRoute,
   } as any)
+const _sidebarLayoutTeacherReportsReportIdEditRoute =
+  _sidebarLayoutTeacherReportsReportIdEditRouteImport.update({
+    id: '/$reportId/edit',
+    path: '/$reportId/edit',
+    getParentRoute: () => _sidebarLayoutTeacherReportsRouteRoute,
+  } as any)
 const _sidebarLayoutPrincipalStudentsStudentIdEditRoute =
   _sidebarLayoutPrincipalStudentsStudentIdEditRouteImport.update({
     id: '/$studentId/edit',
@@ -246,6 +253,7 @@ export interface FileRoutesByFullPath {
   '/principal/courses/$courseId/edit': typeof _sidebarLayoutPrincipalCoursesCourseIdEditRoute
   '/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
   '/principal/students/$studentId/edit': typeof _sidebarLayoutPrincipalStudentsStudentIdEditRoute
+  '/teacher/reports/$reportId/edit': typeof _sidebarLayoutTeacherReportsReportIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -268,6 +276,7 @@ export interface FileRoutesByTo {
   '/principal/courses/$courseId/edit': typeof _sidebarLayoutPrincipalCoursesCourseIdEditRoute
   '/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
   '/principal/students/$studentId/edit': typeof _sidebarLayoutPrincipalStudentsStudentIdEditRoute
+  '/teacher/reports/$reportId/edit': typeof _sidebarLayoutTeacherReportsReportIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -301,6 +310,7 @@ export interface FileRoutesById {
   '/__sidebarLayout/principal/courses/$courseId/edit': typeof _sidebarLayoutPrincipalCoursesCourseIdEditRoute
   '/__sidebarLayout/principal/periods/$periodId/edit': typeof _sidebarLayoutPrincipalPeriodsPeriodIdEditRoute
   '/__sidebarLayout/principal/students/$studentId/edit': typeof _sidebarLayoutPrincipalStudentsStudentIdEditRoute
+  '/__sidebarLayout/teacher/reports/$reportId/edit': typeof _sidebarLayoutTeacherReportsReportIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -334,6 +344,7 @@ export interface FileRouteTypes {
     | '/principal/courses/$courseId/edit'
     | '/principal/periods/$periodId/edit'
     | '/principal/students/$studentId/edit'
+    | '/teacher/reports/$reportId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -356,6 +367,7 @@ export interface FileRouteTypes {
     | '/principal/courses/$courseId/edit'
     | '/principal/periods/$periodId/edit'
     | '/principal/students/$studentId/edit'
+    | '/teacher/reports/$reportId/edit'
   id:
     | '__root__'
     | '/'
@@ -388,6 +400,7 @@ export interface FileRouteTypes {
     | '/__sidebarLayout/principal/courses/$courseId/edit'
     | '/__sidebarLayout/principal/periods/$periodId/edit'
     | '/__sidebarLayout/principal/students/$studentId/edit'
+    | '/__sidebarLayout/teacher/reports/$reportId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -580,6 +593,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _sidebarLayoutPrincipalClassesCreateRouteImport
       parentRoute: typeof _sidebarLayoutPrincipalClassesRouteRoute
     }
+    '/__sidebarLayout/teacher/reports/$reportId/edit': {
+      id: '/__sidebarLayout/teacher/reports/$reportId/edit'
+      path: '/$reportId/edit'
+      fullPath: '/teacher/reports/$reportId/edit'
+      preLoaderRoute: typeof _sidebarLayoutTeacherReportsReportIdEditRouteImport
+      parentRoute: typeof _sidebarLayoutTeacherReportsRouteRoute
+    }
     '/__sidebarLayout/principal/students/$studentId/edit': {
       id: '/__sidebarLayout/principal/students/$studentId/edit'
       path: '/$studentId/edit'
@@ -767,12 +787,15 @@ const _sidebarLayoutStudentRouteRouteWithChildren =
 
 interface _sidebarLayoutTeacherReportsRouteRouteChildren {
   _sidebarLayoutTeacherReportsIndexRoute: typeof _sidebarLayoutTeacherReportsIndexRoute
+  _sidebarLayoutTeacherReportsReportIdEditRoute: typeof _sidebarLayoutTeacherReportsReportIdEditRoute
 }
 
 const _sidebarLayoutTeacherReportsRouteRouteChildren: _sidebarLayoutTeacherReportsRouteRouteChildren =
   {
     _sidebarLayoutTeacherReportsIndexRoute:
       _sidebarLayoutTeacherReportsIndexRoute,
+    _sidebarLayoutTeacherReportsReportIdEditRoute:
+      _sidebarLayoutTeacherReportsReportIdEditRoute,
   }
 
 const _sidebarLayoutTeacherReportsRouteRouteWithChildren =
