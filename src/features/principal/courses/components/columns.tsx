@@ -16,9 +16,6 @@ export const columns: ColumnDef<Course>[] = [
     cell: ({ row }) => {
       const navigate = useNavigate();
 
-      const onDetail = () => {
-        console.log("detail clicked");
-      };
       const onEdit = () => {
         navigate({
           to: "/principal/courses/$courseId/edit",
@@ -29,13 +26,7 @@ export const columns: ColumnDef<Course>[] = [
         console.log("delete clicked");
       };
 
-      return (
-        <DataTableActions
-          detailFn={onDetail}
-          editFn={onEdit}
-          deleteFn={onDelete}
-        />
-      );
+      return <DataTableActions editFn={onEdit} deleteFn={onDelete} />;
     },
   },
 ];

@@ -37,10 +37,7 @@ export const columns: ColumnDef<Report>[] = [
     id: "actions",
     cell: ({ row }) => {
       const navigate = useNavigate();
-      // TODO: edit this callback
-      const onDetail = () => {
-        console.log("detail clicked");
-      };
+
       const onEdit = () => {
         navigate({
           to: "/teacher/reports/$reportId/edit",
@@ -49,17 +46,8 @@ export const columns: ColumnDef<Report>[] = [
           },
         });
       };
-      const onDelete = () => {
-        console.log("delete clicked");
-      };
 
-      return (
-        <DataTableActions
-          detailFn={onDetail}
-          editFn={onEdit}
-          deleteFn={onDelete}
-        />
-      );
+      return <DataTableActions editFn={onEdit} />;
     },
   },
 ];
