@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/stores/auth";
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import logo from "../logo.svg";
 
 export const Route = createFileRoute("/")({
@@ -27,7 +27,12 @@ function App() {
         <p>
           Edit <code>src/routes/index.tsx</code> and save to reload.
         </p>
-        <a
+        {/* TODO: remove this */}
+        <Link to="/auth/login">Login page</Link>
+        <Link to="/principal">Principal page</Link>
+        <Link to="/teacher">Teacher page</Link>
+        <Link to="/student">Student page</Link>
+        {/* <a
           className="text-[#61dafb] hover:underline"
           href="https://reactjs.org"
           target="_blank"
@@ -42,7 +47,7 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn TanStack
-        </a>
+        </a> */}
       </header>
     </div>
   );
