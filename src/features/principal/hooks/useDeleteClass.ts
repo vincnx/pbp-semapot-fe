@@ -2,7 +2,7 @@ import { axiosInstance } from "@/lib/axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function deleteClass(id: string) {
-  return axiosInstance.delete(`/classes/${id}`);
+  return axiosInstance.delete(`/kepala-sekolah/kelas/${id}`);
 }
 
 export function useDeleteClass() {
