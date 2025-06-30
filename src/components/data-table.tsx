@@ -51,6 +51,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Skeleton } from "./ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,7 +72,8 @@ interface DataTableActionsProps {
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+  isLoading,
+}: DataTableProps<TData, TValue> & { isLoading?: boolean }) {
   const [sorting, setSorting] = useState<SortingState>([]);
   // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -94,6 +96,10 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   });
+
+  if (isLoading) {
+    return <DataTableSkeleton table={table} />;
+  }
 
   return (
     <div>
@@ -154,6 +160,68 @@ export function DataTable<TData, TValue>({
                 </TableCell>
               </TableRow>
             )}
+          </TableBody>
+        </Table>
+      </div>
+      <div className="pt-2">
+        <DataTablePagination table={table} />
+      </div>
+    </div>
+  );
+}
+
+export function DataTableSkeleton<TData>({ table }: { table: ITable<TData> }) {
+  return (
+    <div>
+      <div className="flex items-center gap-4 py-2">
+        <Skeleton className="h-9 max-w-sm flex-1" />
+        <Skeleton className="ms-auto h-9 w-32" />
+      </div>
+      <div className="rounded-md border-2">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead key={header.id}>
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell
+                colSpan={table.getAllColumns().length}
+                className="h-24 text-center"
+              >
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <div className="flex items-center justify-center gap-2">
+                    <div
+                      className="bg-muted-foreground h-2 w-2 animate-[pulse_1s_ease-in-out_infinite] rounded-full"
+                      style={{ animationDelay: "0s" }}
+                    ></div>
+                    <div
+                      className="bg-muted-foreground h-2 w-2 animate-[pulse_1s_ease-in-out_infinite] rounded-full"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                    <div
+                      className="bg-muted-foreground h-2 w-2 animate-[pulse_1s_ease-in-out_infinite] rounded-full"
+                      style={{ animationDelay: "0.4s" }}
+                    ></div>
+                  </div>
+                  <p>Loading...</p>
+                </div>
+              </TableCell>
+            </TableRow>
           </TableBody>
         </Table>
       </div>
