@@ -4,7 +4,9 @@ import type { SuccessResponse } from "@/types/response/base-response.type";
 import { useQuery } from "@tanstack/react-query";
 
 function fetchClass(id: string) {
-  return axiosInstance.get<SuccessResponse<Class>>(`/classes/${id}`);
+  return axiosInstance.get<SuccessResponse<Class>>(
+    `/kepala-sekolah/kelas/${id}`,
+  );
 }
 
 export function useFetchClass(id: string) {

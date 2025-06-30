@@ -8,7 +8,10 @@ interface Payload {
 }
 
 function editClass(payload: Payload) {
-  return axiosInstance.put(`/classes/${payload.id}`, payload.schema);
+  return axiosInstance.put(
+    `/kepala-sekolah/kelas/${payload.id}`,
+    payload.schema,
+  );
 }
 
 export function useEditClass() {
