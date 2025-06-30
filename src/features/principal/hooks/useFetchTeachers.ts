@@ -4,7 +4,7 @@ import type { User } from "@/types/user.type";
 import { useQuery } from "@tanstack/react-query";
 
 function fetchTeachers() {
-  return axiosInstance.get<SuccessResponse<User[]>>("/wali-kelas");
+  return axiosInstance.get<SuccessResponse<User[]>>("/kepala-sekolah/teachers");
 }
 
 export function useFetchTeachers() {

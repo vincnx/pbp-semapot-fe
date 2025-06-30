@@ -3,7 +3,7 @@ import type { ClassSchema } from "@/schemas/class.schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 function createClass(schema: ClassSchema) {
-  return axiosInstance.post("/classes", schema);
+  return axiosInstance.post("/kepala-sekolah/kelas", schema);
 }
 
 export function useCreateClass() {
