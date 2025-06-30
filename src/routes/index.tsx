@@ -11,6 +11,11 @@ export const Route = createFileRoute("/")({
         to: "/teacher",
         throw: true,
       });
+    } else if (user?.role === "kepala_sekolah") {
+      redirect({
+        to: "/principal",
+        throw: true,
+      });
     }
   },
 });

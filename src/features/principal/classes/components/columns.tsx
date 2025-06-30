@@ -6,7 +6,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
 import { useDeleteClass } from "../../hooks/useDeleteClass";
 
-export const columns: ColumnDef<Class>[] = [
+export const columns: ColumnDef<Class & { class_teacher: string }>[] = [
   {
     accessorKey: "grade",
     header: ({ column }) => (
@@ -28,7 +28,7 @@ export const columns: ColumnDef<Class>[] = [
   },
   {
     id: "class_teacher",
-    accessorFn: (row) => row.user.name,
+    accessorFn: (row) => row.class_teacher,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Class Teacher" />
     ),
