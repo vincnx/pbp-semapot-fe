@@ -2,21 +2,21 @@ import { useAuthStore } from "@/stores/auth";
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import logo from "../logo.svg";
 
+const redirectTo = {
+  wali_kelas: "/teacher",
+  kepala_sekolah: "/principal",
+  murid: "/student",
+};
+
 export const Route = createFileRoute("/")({
   component: App,
   loader: () => {
     const { user } = useAuthStore.getState();
-    if (user?.role === "wali kelas") {
-      redirect({
-        to: "/teacher",
-        throw: true,
-      });
-    } else if (user?.role === "kepala_sekolah") {
-      redirect({
-        to: "/principal",
-        throw: true,
-      });
-    }
+
+    redirect({
+      to: redirectTo[user?.role as keyof typeof redirectTo],
+      throw: true,
+    });
   },
 });
 
