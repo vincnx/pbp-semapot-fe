@@ -1,8 +1,10 @@
+import { toast } from "@/components/ui/sonner";
 import { axiosInstance } from "@/lib/axios";
 import type { LoginSchema } from "@/schemas/login.schema";
 import { useAuthStore } from "@/stores/auth";
 import type { LoginResponse } from "@/types/response/login-response.type";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { useFetchUserData } from "./useFetchUserData";
 
 function login(schema: LoginSchema) {
@@ -12,15 +14,22 @@ function login(schema: LoginSchema) {
 export function useLogin() {
   const { setToken } = useAuthStore();
   const { refetch } = useFetchUserData();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (schema: LoginSchema) => {
       const response = await login(schema);
       return response.data;
     },
-    onSuccess: (resp) => {
+    onSuccess: async (resp) => {
       setToken(resp.token);
-      refetch();
+      const userData = await refetch();
+      toast({
+        title: "Login Success",
+        description: `Welcome to the app ${userData.data?.name} 👋`,
+        variant: "success",
+      });
+      navigate({ to: "/" });
     },
   });
 }

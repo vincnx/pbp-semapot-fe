@@ -8,18 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/components/ui/sonner";
 import { useLogin } from "@/hooks/requests/useLogin";
 import { loginSchema, type LoginSchema } from "@/schemas/login.schema";
-import { useAuthStore } from "@/stores/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
   const { mutate, isPending } = useLogin();
-  const { user } = useAuthStore();
-  const navigate = useNavigate();
 
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -30,16 +25,7 @@ const LoginForm = () => {
   });
 
   function onSubmit(values: LoginSchema) {
-    mutate(values, {
-      onSuccess: () => {
-        toast({
-          title: "Login Success",
-          description: `Welcome to the app ${user?.name} 👋`,
-          variant: "success",
-        });
-        navigate({ to: "/" });
-      },
-    });
+    mutate(values);
   }
 
   return (
