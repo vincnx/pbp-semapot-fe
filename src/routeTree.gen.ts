@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as _sidebarLayoutRouteImport } from './routes/__sidebarLayout'
 import { Route as AuthRouteRouteImport } from './routes/auth/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as _sidebarLayoutTeacherRouteRouteImport } from './routes/__sidebarLayout/teacher/route'
 import { Route as _sidebarLayoutStudentRouteRouteImport } from './routes/__sidebarLayout/student/route'
@@ -55,6 +56,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => AuthRouteRoute,
 } as any)
 const AuthLoginRoute = AuthLoginRouteImport.update({
   id: '/login',
@@ -237,6 +243,7 @@ export interface FileRoutesByFullPath {
   '/student': typeof _sidebarLayoutStudentRouteRouteWithChildren
   '/teacher': typeof _sidebarLayoutTeacherRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/principal/classes': typeof _sidebarLayoutPrincipalClassesRouteRouteWithChildren
   '/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
@@ -267,6 +274,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/principal': typeof _sidebarLayoutPrincipalIndexRoute
   '/student': typeof _sidebarLayoutStudentIndexRoute
   '/teacher': typeof _sidebarLayoutTeacherIndexRoute
@@ -296,6 +304,7 @@ export interface FileRoutesById {
   '/__sidebarLayout/student': typeof _sidebarLayoutStudentRouteRouteWithChildren
   '/__sidebarLayout/teacher': typeof _sidebarLayoutTeacherRouteRouteWithChildren
   '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/__sidebarLayout/principal/classes': typeof _sidebarLayoutPrincipalClassesRouteRouteWithChildren
   '/__sidebarLayout/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/__sidebarLayout/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
@@ -331,6 +340,7 @@ export interface FileRouteTypes {
     | '/student'
     | '/teacher'
     | '/auth/login'
+    | '/auth/register'
     | '/principal/classes'
     | '/principal/courses'
     | '/principal/periods'
@@ -361,6 +371,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/auth/login'
+    | '/auth/register'
     | '/principal'
     | '/student'
     | '/teacher'
@@ -389,6 +400,7 @@ export interface FileRouteTypes {
     | '/__sidebarLayout/student'
     | '/__sidebarLayout/teacher'
     | '/auth/login'
+    | '/auth/register'
     | '/__sidebarLayout/principal/classes'
     | '/__sidebarLayout/principal/courses'
     | '/__sidebarLayout/principal/periods'
@@ -444,6 +456,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof AuthRouteRoute
     }
     '/auth/login': {
       id: '/auth/login'
@@ -653,10 +672,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthRouteRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
 }
 
 const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
