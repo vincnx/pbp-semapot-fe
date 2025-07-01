@@ -6,10 +6,28 @@ import ReactDOM from "react-dom/client";
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
 
+import { AxiosError } from "axios";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./styles.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry(failureCount, error) {
+        if (
+          error instanceof AxiosError &&
+          error.response?.status &&
+          error.response?.status >= 400 &&
+          error.response?.status !== 408 &&
+          error.response?.status < 500
+        ) {
+          return false;
+        }
+        return failureCount < 3;
+      },
+    },
+  },
+});
 
 // Create a new router instance
 const router = createRouter({
