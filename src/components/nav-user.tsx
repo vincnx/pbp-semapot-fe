@@ -17,20 +17,23 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { useAuthStore } from "@/stores/auth";
 import type { User } from "@/types/user.type";
+import { useRouter } from "@tanstack/react-router";
+import { toast } from "./ui/sonner";
 
-// TODO: handle this hardcode
-export function NavUser({
-  user = {
-    email: "",
-    name: "",
-    id: 0,
-    role: "",
-  },
-}: {
-  user: User;
-}) {
+export function NavUser({ user }: { user: User }) {
   const { isMobile } = useSidebar();
+  const { logout } = useAuthStore();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.navigate({ to: "/auth/login" });
+    toast({
+      title: "Berhasil logout",
+    });
+  };
 
   return (
     <SidebarMenu>
@@ -75,7 +78,7 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>

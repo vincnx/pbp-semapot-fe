@@ -7,6 +7,7 @@ interface AuthStore {
   user?: User;
   setToken(newToken: string | undefined): void;
   setUser(newUser: User | undefined): void;
+  logout(): void;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -16,6 +17,7 @@ export const useAuthStore = create<AuthStore>()(
       user: undefined,
       setToken: (newToken: string | undefined) => set({ token: newToken }),
       setUser: (newUser: User | undefined) => set({ user: newUser }),
+      logout: () => set({ token: undefined, user: undefined }),
     }),
     {
       name: "auth",
