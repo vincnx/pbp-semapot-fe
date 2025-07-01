@@ -1,12 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 // Import the generated route tree
-import { routeTree } from "./routeTree.gen";
 
 import { AxiosError } from "axios";
+import { router } from "./lib/router.ts";
 import reportWebVitals from "./reportWebVitals.ts";
 import "./styles.css";
 
@@ -28,26 +28,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-
-// Create a new router instance
-const router = createRouter({
-  routeTree,
-  context: {
-    queryClient,
-  },
-  defaultPreload: "intent",
-  scrollRestoration: true,
-  defaultStructuralSharing: true,
-  defaultPreloadStaleTime: 0,
-  notFoundMode: "root",
-});
-
-// Register the router instance for type safety
-declare module "@tanstack/react-router" {
-  interface Register {
-    router: typeof router;
-  }
-}
 
 // Render the app
 const rootElement = document.getElementById("app");

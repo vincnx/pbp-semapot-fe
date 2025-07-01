@@ -8,6 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { toast } from "@/components/ui/sonner";
 import { useLogin } from "@/hooks/requests/useLogin";
 import { loginSchema, type LoginSchema } from "@/schemas/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,7 +26,15 @@ const LoginForm = () => {
   });
 
   function onSubmit(values: LoginSchema) {
-    mutate(values);
+    mutate(values, {
+      onError: (err) => {
+        toast({
+          title: "Login Failed",
+          description: err.response?.data.error,
+          variant: "destructive",
+        });
+      },
+    });
   }
 
   return (

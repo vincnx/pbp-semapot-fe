@@ -6,6 +6,7 @@ import type {
   InternalAxiosRequestConfig,
 } from "axios";
 import axios from "axios";
+import { router } from "./router";
 
 function handleRequest(config: InternalAxiosRequestConfig) {
   const token = useAuthStore.getState().token;
@@ -22,9 +23,11 @@ function handleError(error: AxiosError) {
 
   if (error.response?.status === 401) {
     authStore.logout();
-    window.location.href = "/auth/login";
+    router.navigate({
+      to: "/auth/login",
+    });
   }
-  return error;
+  throw error;
 }
 
 const axiosConfig: CreateAxiosDefaults = {

@@ -5,6 +5,7 @@ import { useAuthStore } from "@/stores/auth";
 import type { LoginResponse } from "@/types/response/login-response.type";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import type { AxiosError } from "axios";
 import { useFetchUserData } from "./useFetchUserData";
 
 function login(schema: LoginSchema) {
@@ -15,8 +16,9 @@ export function useLogin() {
   const { setToken } = useAuthStore();
   const { refetch } = useFetchUserData();
   const navigate = useNavigate();
+  let error: undefined | string = undefined;
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (schema: LoginSchema) => {
       const response = await login(schema);
       return response.data;
@@ -31,5 +33,10 @@ export function useLogin() {
       });
       navigate({ to: "/" });
     },
+    onError: (err: AxiosError<{ error: string }>) => {
+      error = err.response?.data.error;
+    },
   });
+
+  return { ...mutation, error };
 }
