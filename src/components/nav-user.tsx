@@ -22,7 +22,7 @@ import type { User } from "@/types/user.type";
 import { useRouter } from "@tanstack/react-router";
 import { toast } from "./ui/sonner";
 
-export function NavUser({ user }: { user: User }) {
+export function NavUser({ user }: { user?: User }) {
   const { isMobile } = useSidebar();
   const { logout } = useAuthStore();
   const router = useRouter();
@@ -45,14 +45,14 @@ export function NavUser({ user }: { user: User }) {
               className="data-[state=open]:bg-primary-foreground data-[state=open]:text-accent-foreground"
             >
               <Avatar className="h-8 w-8 rounded-lg">
-                <AvatarImage alt={user.name} />
+                <AvatarImage alt={user?.name} />
                 <AvatarFallback className="rounded-lg">
-                  {user.name.slice(0, 2)}
+                  {user?.name.slice(0, 2)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate font-medium">{user?.name}</span>
+                <span className="truncate text-xs">{user?.email}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -66,14 +66,14 @@ export function NavUser({ user }: { user: User }) {
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage alt={user.name} />
+                  <AvatarImage alt={user?.name} />
                   <AvatarFallback className="rounded-lg">
-                    {user.name.slice(0, 2)}
+                    {user?.name.slice(0, 2)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{user?.name}</span>
+                  <span className="truncate text-xs">{user?.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

@@ -22,12 +22,14 @@ import { Route as _sidebarLayoutStudentIndexRouteImport } from './routes/__sideb
 import { Route as _sidebarLayoutPrincipalIndexRouteImport } from './routes/__sidebarLayout/principal/index'
 import { Route as _sidebarLayoutTeacherReportsRouteRouteImport } from './routes/__sidebarLayout/teacher/reports/route'
 import { Route as _sidebarLayoutStudentReportsRouteRouteImport } from './routes/__sidebarLayout/student/reports/route'
+import { Route as _sidebarLayoutPrincipalUsersRouteRouteImport } from './routes/__sidebarLayout/principal/users/route'
 import { Route as _sidebarLayoutPrincipalStudentsRouteRouteImport } from './routes/__sidebarLayout/principal/students/route'
 import { Route as _sidebarLayoutPrincipalPeriodsRouteRouteImport } from './routes/__sidebarLayout/principal/periods/route'
 import { Route as _sidebarLayoutPrincipalCoursesRouteRouteImport } from './routes/__sidebarLayout/principal/courses/route'
 import { Route as _sidebarLayoutPrincipalClassesRouteRouteImport } from './routes/__sidebarLayout/principal/classes/route'
 import { Route as _sidebarLayoutTeacherReportsIndexRouteImport } from './routes/__sidebarLayout/teacher/reports/index'
 import { Route as _sidebarLayoutStudentReportsIndexRouteImport } from './routes/__sidebarLayout/student/reports/index'
+import { Route as _sidebarLayoutPrincipalUsersIndexRouteImport } from './routes/__sidebarLayout/principal/users/index'
 import { Route as _sidebarLayoutPrincipalStudentsIndexRouteImport } from './routes/__sidebarLayout/principal/students/index'
 import { Route as _sidebarLayoutPrincipalPeriodsIndexRouteImport } from './routes/__sidebarLayout/principal/periods/index'
 import { Route as _sidebarLayoutPrincipalCoursesIndexRouteImport } from './routes/__sidebarLayout/principal/courses/index'
@@ -115,6 +117,12 @@ const _sidebarLayoutStudentReportsRouteRoute =
     path: '/reports',
     getParentRoute: () => _sidebarLayoutStudentRouteRoute,
   } as any)
+const _sidebarLayoutPrincipalUsersRouteRoute =
+  _sidebarLayoutPrincipalUsersRouteRouteImport.update({
+    id: '/users',
+    path: '/users',
+    getParentRoute: () => _sidebarLayoutPrincipalRouteRoute,
+  } as any)
 const _sidebarLayoutPrincipalStudentsRouteRoute =
   _sidebarLayoutPrincipalStudentsRouteRouteImport.update({
     id: '/students',
@@ -150,6 +158,12 @@ const _sidebarLayoutStudentReportsIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => _sidebarLayoutStudentReportsRouteRoute,
+  } as any)
+const _sidebarLayoutPrincipalUsersIndexRoute =
+  _sidebarLayoutPrincipalUsersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => _sidebarLayoutPrincipalUsersRouteRoute,
   } as any)
 const _sidebarLayoutPrincipalStudentsIndexRoute =
   _sidebarLayoutPrincipalStudentsIndexRouteImport.update({
@@ -248,6 +262,7 @@ export interface FileRoutesByFullPath {
   '/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
   '/principal/students': typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
+  '/principal/users': typeof _sidebarLayoutPrincipalUsersRouteRouteWithChildren
   '/student/reports': typeof _sidebarLayoutStudentReportsRouteRouteWithChildren
   '/teacher/reports': typeof _sidebarLayoutTeacherReportsRouteRouteWithChildren
   '/principal/': typeof _sidebarLayoutPrincipalIndexRoute
@@ -261,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/principal/courses/': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
   '/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
+  '/principal/users/': typeof _sidebarLayoutPrincipalUsersIndexRoute
   '/student/reports/': typeof _sidebarLayoutStudentReportsIndexRoute
   '/teacher/reports/': typeof _sidebarLayoutTeacherReportsIndexRoute
   '/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
@@ -286,6 +302,7 @@ export interface FileRoutesByTo {
   '/principal/courses': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/principal/periods': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
   '/principal/students': typeof _sidebarLayoutPrincipalStudentsIndexRoute
+  '/principal/users': typeof _sidebarLayoutPrincipalUsersIndexRoute
   '/student/reports': typeof _sidebarLayoutStudentReportsIndexRoute
   '/teacher/reports': typeof _sidebarLayoutTeacherReportsIndexRoute
   '/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
@@ -309,6 +326,7 @@ export interface FileRoutesById {
   '/__sidebarLayout/principal/courses': typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   '/__sidebarLayout/principal/periods': typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
   '/__sidebarLayout/principal/students': typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
+  '/__sidebarLayout/principal/users': typeof _sidebarLayoutPrincipalUsersRouteRouteWithChildren
   '/__sidebarLayout/student/reports': typeof _sidebarLayoutStudentReportsRouteRouteWithChildren
   '/__sidebarLayout/teacher/reports': typeof _sidebarLayoutTeacherReportsRouteRouteWithChildren
   '/__sidebarLayout/principal/': typeof _sidebarLayoutPrincipalIndexRoute
@@ -322,6 +340,7 @@ export interface FileRoutesById {
   '/__sidebarLayout/principal/courses/': typeof _sidebarLayoutPrincipalCoursesIndexRoute
   '/__sidebarLayout/principal/periods/': typeof _sidebarLayoutPrincipalPeriodsIndexRoute
   '/__sidebarLayout/principal/students/': typeof _sidebarLayoutPrincipalStudentsIndexRoute
+  '/__sidebarLayout/principal/users/': typeof _sidebarLayoutPrincipalUsersIndexRoute
   '/__sidebarLayout/student/reports/': typeof _sidebarLayoutStudentReportsIndexRoute
   '/__sidebarLayout/teacher/reports/': typeof _sidebarLayoutTeacherReportsIndexRoute
   '/__sidebarLayout/principal/classes/$classId/edit': typeof _sidebarLayoutPrincipalClassesClassIdEditRoute
@@ -345,6 +364,7 @@ export interface FileRouteTypes {
     | '/principal/courses'
     | '/principal/periods'
     | '/principal/students'
+    | '/principal/users'
     | '/student/reports'
     | '/teacher/reports'
     | '/principal/'
@@ -358,6 +378,7 @@ export interface FileRouteTypes {
     | '/principal/courses/'
     | '/principal/periods/'
     | '/principal/students/'
+    | '/principal/users/'
     | '/student/reports/'
     | '/teacher/reports/'
     | '/principal/classes/$classId/edit'
@@ -383,6 +404,7 @@ export interface FileRouteTypes {
     | '/principal/courses'
     | '/principal/periods'
     | '/principal/students'
+    | '/principal/users'
     | '/student/reports'
     | '/teacher/reports'
     | '/principal/classes/$classId/edit'
@@ -405,6 +427,7 @@ export interface FileRouteTypes {
     | '/__sidebarLayout/principal/courses'
     | '/__sidebarLayout/principal/periods'
     | '/__sidebarLayout/principal/students'
+    | '/__sidebarLayout/principal/users'
     | '/__sidebarLayout/student/reports'
     | '/__sidebarLayout/teacher/reports'
     | '/__sidebarLayout/principal/'
@@ -418,6 +441,7 @@ export interface FileRouteTypes {
     | '/__sidebarLayout/principal/courses/'
     | '/__sidebarLayout/principal/periods/'
     | '/__sidebarLayout/principal/students/'
+    | '/__sidebarLayout/principal/users/'
     | '/__sidebarLayout/student/reports/'
     | '/__sidebarLayout/teacher/reports/'
     | '/__sidebarLayout/principal/classes/$classId/edit'
@@ -527,6 +551,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof _sidebarLayoutStudentReportsRouteRouteImport
       parentRoute: typeof _sidebarLayoutStudentRouteRoute
     }
+    '/__sidebarLayout/principal/users': {
+      id: '/__sidebarLayout/principal/users'
+      path: '/users'
+      fullPath: '/principal/users'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalUsersRouteRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalRouteRoute
+    }
     '/__sidebarLayout/principal/students': {
       id: '/__sidebarLayout/principal/students'
       path: '/students'
@@ -568,6 +599,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/student/reports/'
       preLoaderRoute: typeof _sidebarLayoutStudentReportsIndexRouteImport
       parentRoute: typeof _sidebarLayoutStudentReportsRouteRoute
+    }
+    '/__sidebarLayout/principal/users/': {
+      id: '/__sidebarLayout/principal/users/'
+      path: '/'
+      fullPath: '/principal/users/'
+      preLoaderRoute: typeof _sidebarLayoutPrincipalUsersIndexRouteImport
+      parentRoute: typeof _sidebarLayoutPrincipalUsersRouteRoute
     }
     '/__sidebarLayout/principal/students/': {
       id: '/__sidebarLayout/principal/students/'
@@ -768,11 +806,27 @@ const _sidebarLayoutPrincipalStudentsRouteRouteWithChildren =
     _sidebarLayoutPrincipalStudentsRouteRouteChildren,
   )
 
+interface _sidebarLayoutPrincipalUsersRouteRouteChildren {
+  _sidebarLayoutPrincipalUsersIndexRoute: typeof _sidebarLayoutPrincipalUsersIndexRoute
+}
+
+const _sidebarLayoutPrincipalUsersRouteRouteChildren: _sidebarLayoutPrincipalUsersRouteRouteChildren =
+  {
+    _sidebarLayoutPrincipalUsersIndexRoute:
+      _sidebarLayoutPrincipalUsersIndexRoute,
+  }
+
+const _sidebarLayoutPrincipalUsersRouteRouteWithChildren =
+  _sidebarLayoutPrincipalUsersRouteRoute._addFileChildren(
+    _sidebarLayoutPrincipalUsersRouteRouteChildren,
+  )
+
 interface _sidebarLayoutPrincipalRouteRouteChildren {
   _sidebarLayoutPrincipalClassesRouteRoute: typeof _sidebarLayoutPrincipalClassesRouteRouteWithChildren
   _sidebarLayoutPrincipalCoursesRouteRoute: typeof _sidebarLayoutPrincipalCoursesRouteRouteWithChildren
   _sidebarLayoutPrincipalPeriodsRouteRoute: typeof _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren
   _sidebarLayoutPrincipalStudentsRouteRoute: typeof _sidebarLayoutPrincipalStudentsRouteRouteWithChildren
+  _sidebarLayoutPrincipalUsersRouteRoute: typeof _sidebarLayoutPrincipalUsersRouteRouteWithChildren
   _sidebarLayoutPrincipalIndexRoute: typeof _sidebarLayoutPrincipalIndexRoute
 }
 
@@ -786,6 +840,8 @@ const _sidebarLayoutPrincipalRouteRouteChildren: _sidebarLayoutPrincipalRouteRou
       _sidebarLayoutPrincipalPeriodsRouteRouteWithChildren,
     _sidebarLayoutPrincipalStudentsRouteRoute:
       _sidebarLayoutPrincipalStudentsRouteRouteWithChildren,
+    _sidebarLayoutPrincipalUsersRouteRoute:
+      _sidebarLayoutPrincipalUsersRouteRouteWithChildren,
     _sidebarLayoutPrincipalIndexRoute: _sidebarLayoutPrincipalIndexRoute,
   }
 

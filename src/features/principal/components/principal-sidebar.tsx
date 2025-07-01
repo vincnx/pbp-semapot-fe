@@ -1,5 +1,11 @@
 import { AppSidebar } from "@/components/app-sidebar";
-import { BookIcon, CalendarRange, School2, UsersRound } from "lucide-react";
+import {
+  BookIcon,
+  CalendarRange,
+  School2,
+  UserRoundCheck,
+  UsersRound,
+} from "lucide-react";
 
 const data = {
   navMain: [
@@ -46,6 +52,12 @@ const data = {
           url: "/principal/classes/create",
         },
       ],
+    },
+    {
+      title: "Users",
+      url: "/principal/users",
+      icon: UserRoundCheck,
+      items: [],
     },
   ],
   navSecondary: [],
