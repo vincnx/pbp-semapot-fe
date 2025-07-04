@@ -19,16 +19,19 @@ export const columns: ColumnDef<Period>[] = [
   },
   {
     id: "is_active",
-    accessorFn: (row) => (row.is_active === 1 ? "active" : "inactive"),
+    accessorFn: (row) =>
+      statusFormatter[row.status as keyof typeof statusFormatter],
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const color = row.original.is_active ? "bg-green-600" : "bg-red-600";
+      const { color, label } = row.original.status
+        ? statusFormatter[row.original.status as keyof typeof statusFormatter]
+        : statusFormatter.pending;
 
       return (
         <Badge className={cn(color, "text-background")} variant={"outline"}>
-          {row.getValue("is_active")}
+          {label}
         </Badge>
       );
     },
@@ -36,19 +39,41 @@ export const columns: ColumnDef<Period>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
+      if (row.original.status === "selesai") return;
+
       const navigate = useNavigate();
 
       const onEdit = () => {
         navigate({
           to: "/principal/periods/$periodId/edit",
-          params: { periodId: row.original.id },
+          params: { periodId: row.original.id.toString() },
         });
       };
       const onDelete = () => {
         console.log("delete clicked");
       };
 
-      return <DataTableActions editFn={onEdit} deleteFn={onDelete} />;
+      return (
+        <DataTableActions
+          editFn={onEdit}
+          deleteFn={row.original.status !== "aktif" ? onDelete : undefined}
+        />
+      );
     },
   },
 ];
+
+const statusFormatter = {
+  aktif: {
+    label: "active",
+    color: "bg-green-600",
+  },
+  pending: {
+    label: "pending",
+    color: "bg-gray-400",
+  },
+  selesai: {
+    label: "done",
+    color: "bg-red-600",
+  },
+};

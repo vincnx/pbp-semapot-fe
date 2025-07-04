@@ -24,15 +24,16 @@ import { useForm } from "react-hook-form";
 interface PeriodFormProps {
   data?: Period;
   onSubmit: (values: PeriodSchema) => void;
+  isLoading?: boolean;
 }
 
-const PeriodForm = ({ data, onSubmit }: PeriodFormProps) => {
+const PeriodForm = ({ data, onSubmit, isLoading }: PeriodFormProps) => {
   const form = useForm<PeriodSchema>({
     resolver: zodResolver(periodSchema),
     defaultValues: {
       year: data?.year ? +data.year : undefined,
       semester: data?.semester as "1" | "2" | undefined,
-      is_active: data?.is_active ? true : undefined,
+      status: data?.status,
     },
   });
 
@@ -82,16 +83,14 @@ const PeriodForm = ({ data, onSubmit }: PeriodFormProps) => {
         />
         <FormField
           control={form.control}
-          name="is_active"
+          name="status"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Status</FormLabel>
               <Select
-                name="is_active"
+                name="status"
                 onValueChange={field.onChange}
-                defaultValue={
-                  field.value ? Number(field.value).toString() : "0"
-                }
+                defaultValue={field.value ?? "pending"}
                 disabled={!data}
               >
                 <FormControl>
@@ -100,18 +99,22 @@ const PeriodForm = ({ data, onSubmit }: PeriodFormProps) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="0">Inactive</SelectItem>
-                  <SelectItem value="1">Active</SelectItem>
+                  <SelectItem value="aktif">Active</SelectItem>
+                  {data?.status !== "aktif" && (
+                    <SelectItem value="pending">Pending</SelectItem>
+                  )}
+                  <SelectItem value="selesai">Done</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
-                By default, the period is inactive, you can change it later.
+                By default, the period is pending, you can change it later.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <Button
+          isLoading={isLoading}
           className="bg-accent hover:bg-accent/80 mt-2 w-full border-2"
           type="submit"
         >
