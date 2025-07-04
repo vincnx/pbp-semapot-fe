@@ -1,3 +1,5 @@
+import type { Class } from "./class.type";
+import type { Course } from "./course.type";
 import type { Period } from "./period.type";
 import type { User } from "./user.type";
 
@@ -6,15 +8,12 @@ export interface Report {
   period_id: number;
   user_id: number;
   student: User;
-  classroom: {
-    grade: string;
-    code: string;
-    year: string;
-  };
+  classroom: Class;
   period: Period;
   report_items?: {
-    course_name: string;
-    course_id: string;
+    course: Course;
+    name: string;
+    course_id: number;
     grade?: number;
   }[];
 }

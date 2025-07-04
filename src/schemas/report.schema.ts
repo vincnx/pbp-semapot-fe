@@ -4,7 +4,9 @@ export const reportSchema = z
   .object({
     report_items: z.array(
       z.object({
-        course_id: z.string().min(1, { message: "course id is required" }),
+        course_id: z.coerce
+          .number()
+          .min(1, { message: "course id is required" }),
         course_name: z.string().min(1, { message: "course name is required" }),
         grade: z.coerce
           .number()

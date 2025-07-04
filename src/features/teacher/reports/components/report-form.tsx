@@ -13,28 +13,56 @@ import type { Report } from "@/types/report.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useFetchCourses } from "../../hooks/useFetchCourses";
 
 interface ReportFormProps {
   data: Report;
   onSubmit: (values: ReportSchema) => void;
+  isLoading?: boolean;
 }
 
-const ReportForm = ({ data, onSubmit }: ReportFormProps) => {
+const ReportForm = ({ data, onSubmit, isLoading }: ReportFormProps) => {
+  const { data: courses } = useFetchCourses();
+
   const form = useForm<ReportSchema>({
     resolver: zodResolver(reportSchema),
   });
 
+  // initialize form with courses
   useEffect(() => {
-    if (data) {
-      form.reset({
-        report_items: data.report_items?.map((item) => ({
-          course_id: item.course_id,
-          course_name: item.course_name,
-          grade: item.grade,
-        })),
-      });
-    }
-  }, [data, form]);
+    if (!courses) return;
+
+    const initialReportItems = courses.map((course) => ({
+      course_id: course.id,
+      course_name: course.name,
+      grade: 0,
+    }));
+
+    form.reset({
+      report_items: initialReportItems,
+    });
+  }, [courses]);
+
+  // update form with existing report data
+  useEffect(() => {
+    if (!data?.report_items || !courses) return;
+
+    const updatedReportItems = courses.map((course) => {
+      const existingReport = data.report_items?.find(
+        (item) => item.course_id === course.id,
+      );
+
+      return {
+        course_id: course.id,
+        course_name: course.name,
+        grade: existingReport?.grade ?? 0,
+      };
+    });
+
+    form.reset({
+      report_items: updatedReportItems,
+    });
+  }, [data, courses]);
 
   return (
     <Form {...form}>
@@ -42,8 +70,8 @@ const ReportForm = ({ data, onSubmit }: ReportFormProps) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
-        {data.report_items?.map((_, index) => (
-          <div className="flex items-start gap-2" key={index}>
+        {courses?.map((course, index) => (
+          <div className="flex items-start gap-2" key={course.id}>
             <FormField
               control={form.control}
               name={`report_items.${index}.course_name`}
@@ -78,6 +106,7 @@ const ReportForm = ({ data, onSubmit }: ReportFormProps) => {
           </div>
         ))}
         <Button
+          isLoading={isLoading}
           className="bg-accent hover:bg-accent/80 mt-2 w-full border-2"
           type="submit"
         >

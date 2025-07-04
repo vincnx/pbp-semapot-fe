@@ -1,65 +1,52 @@
+import Loader from "@/components/loader";
+import { toast } from "@/components/ui/sonner";
+import { useCreateReportItems } from "@/features/teacher/hooks/useCreateReportItems";
+import { useFetchReport } from "@/features/teacher/hooks/useFetchReport";
 import ReportForm from "@/features/teacher/reports/components/report-form";
 import type { ReportSchema } from "@/schemas/report.schema";
-import type { Report } from "@/types/report.type";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 
 export const Route = createFileRoute(
   "/__sidebarLayout/teacher/reports/$reportId/edit",
 )({
   component: RouteComponent,
   loader: async () => {
-    const data = await getData();
     return {
-      data,
       crumb: "Edit",
     };
   },
 });
 
-async function getData(): Promise<Report> {
-  return {
-    id: "1",
-    student: {
-      id: "1",
-      name: "John Doe",
-    },
-    class: {
-      grade: "1",
-      code: "a",
-      year: "2025",
-    },
-    period: {
-      year: "2025",
-      semester: "1",
-    },
-    report_items: [
-      {
-        course_name: "Math",
-        course_id: "1",
-        grade: 85,
-      },
-      {
-        course_name: "Science",
-        course_id: "2",
-        grade: 90,
-      },
-      {
-        course_name: "English",
-        course_id: "3",
-      },
-    ],
-  };
-}
-
-function onSubmit(values: ReportSchema) {
-  console.log(values);
-}
+const dataPairContainer = "flex gap-2";
+const labelStyle = "w-16";
 
 function RouteComponent() {
-  const { data } = Route.useLoaderData();
+  const { reportId } = Route.useParams();
+  const navigate = useNavigate();
+  const { data, isLoading } = useFetchReport(reportId);
+  const { mutate, isPending } = useCreateReportItems();
 
-  const dataPairContainer = "flex gap-2";
-  const labelStyle = "w-16";
+  function onSubmit(values: ReportSchema) {
+    mutate(
+      {
+        schema: values,
+        reportId: Number(reportId),
+      },
+      {
+        onSuccess: () => {
+          toast({
+            title: "Report successfully updated",
+            description: "Report has been successfully updated",
+          });
+          navigate({
+            to: "/teacher/reports",
+          });
+        },
+      },
+    );
+  }
+
+  if (!data) return <Loader isLoading={isLoading} />;
 
   return (
     <>
@@ -73,7 +60,7 @@ function RouteComponent() {
           <div className={dataPairContainer}>
             <p className={labelStyle}>Class</p>
             <p>
-              : {data.class.grade} {data.class.code.toUpperCase()}
+              : {data.classroom.grade} {data.classroom.code.toUpperCase()}
             </p>
           </div>
           <div className={dataPairContainer}>
@@ -83,7 +70,7 @@ function RouteComponent() {
             </p>
           </div>
         </div>
-        <ReportForm data={data} onSubmit={onSubmit} />
+        <ReportForm data={data} onSubmit={onSubmit} isLoading={isPending} />
       </div>
     </>
   );
