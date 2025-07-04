@@ -1,10 +1,10 @@
 import { DataTableActions } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-col-header";
-import type { Student } from "@/types/student.type";
+import type { User } from "@/types/user.type";
 import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -13,7 +13,10 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     id: "Class",
-    accessorFn: (row) => `${row.class.grade} ${row.class.code.toUpperCase()}`,
+    accessorFn: (row) =>
+      row.class_students?.length
+        ? `${row.class_students?.[0]?.classroom?.grade} ${row.class_students?.[0]?.classroom?.code.toUpperCase()}`
+        : "-",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Class" />
     ),
@@ -27,7 +30,7 @@ export const columns: ColumnDef<Student>[] = [
         navigate({
           to: "/principal/students/$studentId/edit",
           params: {
-            studentId: row.original.id,
+            studentId: row.original.id.toString(),
           },
         });
       };
