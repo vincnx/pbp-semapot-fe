@@ -14,14 +14,15 @@ export const columns: ColumnDef<Report>[] = [
   },
   {
     id: "class",
-    accessorFn: (row) => `${row.class.grade} ${row.class.code.toUpperCase()}`,
+    accessorFn: (row) =>
+      `${row.classroom.grade} ${row.classroom.code.toUpperCase()}`,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Class" />
     ),
   },
   {
     id: "class year",
-    accessorFn: (row) => row.class.year,
+    accessorFn: (row) => row.classroom.year,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Class year" />
     ),
@@ -42,7 +43,7 @@ export const columns: ColumnDef<Report>[] = [
         navigate({
           to: "/teacher/reports/$reportId/edit",
           params: {
-            reportId: row.original.id,
+            reportId: row.original.id.toString(),
           },
         });
       };

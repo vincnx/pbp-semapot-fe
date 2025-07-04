@@ -1,6 +1,6 @@
 export interface Period {
-  id: string;
-  year: string;
+  id: number;
+  year: number;
   semester: string;
   is_active: number;
 }
