@@ -16,9 +16,10 @@ import { useForm } from "react-hook-form";
 interface CourseFormProps {
   data?: Course;
   onSubmit: (values: CourseSchema) => void;
+  isLoading?: boolean;
 }
 
-const CourseForm = ({ data, onSubmit }: CourseFormProps) => {
+const CourseForm = ({ data, onSubmit, isLoading }: CourseFormProps) => {
   const form = useForm<CourseSchema>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
@@ -48,6 +49,7 @@ const CourseForm = ({ data, onSubmit }: CourseFormProps) => {
         <Button
           className="bg-accent hover:bg-accent/80 mt-2 w-full border-2"
           type="submit"
+          isLoading={isLoading}
         >
           Submit
         </Button>
