@@ -1,10 +1,12 @@
 import { DataTableActions } from "@/components/data-table";
 import { DataTableColumnHeader } from "@/components/data-table-col-header";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import type { Period } from "@/types/period.type";
 import { useNavigate } from "@tanstack/react-router";
 import { type ColumnDef } from "@tanstack/react-table";
+import { useDeletePeriod } from "../../hooks/useDeletePeriod";
 
 export const columns: ColumnDef<Period>[] = [
   {
@@ -42,6 +44,7 @@ export const columns: ColumnDef<Period>[] = [
       if (row.original.status === "selesai") return;
 
       const navigate = useNavigate();
+      const { mutate } = useDeletePeriod();
 
       const onEdit = () => {
         navigate({
@@ -50,7 +53,14 @@ export const columns: ColumnDef<Period>[] = [
         });
       };
       const onDelete = () => {
-        console.log("delete clicked");
+        mutate(row.original.id.toString(), {
+          onSuccess: () => {
+            toast({
+              title: "success",
+              description: "Period deleted successfully",
+            });
+          },
+        });
       };
 
       return (
