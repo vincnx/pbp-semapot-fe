@@ -1,3 +1,4 @@
+import Loader from "@/components/loader";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -7,8 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useFetchReport } from "@/features/student/hooks/useFetchReport";
 import { ReportPdf } from "@/features/student/reports/components/report-pdf";
-import type { Report } from "@/types/report.type";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -16,59 +17,29 @@ export const Route = createFileRoute(
   "/__sidebarLayout/student/reports/$reportId/",
 )({
   component: RouteComponent,
-  loader: async () => {
-    const data = await getData();
+  loader: () => {
     return {
       crumb: "Detail",
-      data,
     };
   },
 });
 
-async function getData(): Promise<Report> {
-  return {
-    id: "1",
-    student: {
-      id: "1",
-      name: "John Doe",
-    },
-    class: {
-      grade: "1",
-      code: "A",
-      year: "2024",
-    },
-    period: {
-      year: "2024",
-      semester: "1",
-    },
-    report_items: [
-      {
-        course_id: "1",
-        course_name: "Math",
-        grade: 85,
-      },
-      {
-        course_id: "2",
-        course_name: "Science",
-        grade: 90,
-      },
-    ],
-  };
-}
+const dataPairContainer = "flex gap-2";
+const labelStyle = "w-16";
 
 function RouteComponent() {
-  const { data } = Route.useLoaderData();
+  const { reportId } = Route.useParams();
+  const { data, isLoading } = useFetchReport(reportId);
 
-  const dataPairContainer = "flex gap-2";
-  const labelStyle = "w-16";
-
-  const totalGrade = data.report_items?.reduce(
+  const totalGrade = data?.report_items?.reduce(
     (total, item) => total + (item.grade ?? 0),
     0,
   );
   const averageGrade = totalGrade
-    ? totalGrade / (data.report_items?.length ?? 1)
+    ? totalGrade / (data?.report_items?.length ?? 1)
     : "-";
+
+  if (!data) return <Loader isLoading={isLoading} />;
 
   return (
     <>
@@ -82,7 +53,7 @@ function RouteComponent() {
           <div className={dataPairContainer}>
             <p className={labelStyle}>Class</p>
             <p>
-              : {data.class.grade} {data.class.code.toUpperCase()}
+              : {data.classroom.grade} {data.classroom.code.toUpperCase()}
             </p>
           </div>
           <div className={dataPairContainer}>
@@ -96,7 +67,7 @@ function RouteComponent() {
         <div className="flex flex-col gap-2">
           <PDFDownloadLink
             document={<ReportPdf data={data} />}
-            fileName={`${data.student.name}-${data.class.code}-${data.period.year}-${data.period.semester}.pdf`}
+            fileName={`${data.student.name}-${data.classroom.code}-${data.period.year}-${data.period.semester}.pdf`}
           >
             <Button className="bg-accent hover:bg-accent/80 w-fit border-2">
               Download
@@ -113,7 +84,7 @@ function RouteComponent() {
               <TableBody className="text-base">
                 {data.report_items?.map((item) => (
                   <TableRow key={item.course_id}>
-                    <TableCell>{item.course_name}</TableCell>
+                    <TableCell>{item.course.name}</TableCell>
                     <TableCell>{item.grade}</TableCell>
                   </TableRow>
                 ))}

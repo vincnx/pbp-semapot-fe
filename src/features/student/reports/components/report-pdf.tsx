@@ -61,7 +61,7 @@ export const ReportPdf = ({ data }: ReportPdfProps) => {
           </View>
           <View style={styles.courseDetailContainer}>
             <Text>Student: {data.student.name}</Text>
-            <Text>Class: {data.class.code}</Text>
+            <Text>Class: {data.classroom.code}</Text>
             <Text>Period: {data.period.year}</Text>
           </View>
           <View>
@@ -81,7 +81,7 @@ export const ReportPdf = ({ data }: ReportPdfProps) => {
                     {index + 1}
                   </Text>
                   <Text style={[styles.tableCell, { width: "70%" }]}>
-                    {item.course_name}
+                    {item.course.name}
                   </Text>
                   <Text style={[styles.tableCell, { width: "20%" }]}>
                     {item.grade}
