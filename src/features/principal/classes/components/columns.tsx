@@ -39,9 +39,6 @@ export const columns: ColumnDef<Class & { class_teacher: string }>[] = [
       const navigate = useNavigate();
       const { mutate: deleteClass } = useDeleteClass();
 
-      const onDetail = () => {
-        console.log("detail clicked");
-      };
       const onEdit = () => {
         navigate({
           to: "/principal/classes/$classId/edit",
@@ -56,16 +53,19 @@ export const columns: ColumnDef<Class & { class_teacher: string }>[] = [
               description: "The class has been deleted successfully",
             });
           },
+          onError: (err) => {
+            toast({
+              title: "Failed to delete class",
+              description: err.response?.data.message,
+              variant: "destructive",
+            });
+          },
         });
       };
 
       return (
         <>
-          <DataTableActions
-            detailFn={onDetail}
-            editFn={onEdit}
-            deleteFn={onDelete}
-          />
+          <DataTableActions editFn={onEdit} deleteFn={onDelete} />
         </>
       );
     },

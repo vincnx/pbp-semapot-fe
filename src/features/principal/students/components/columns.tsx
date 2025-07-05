@@ -34,11 +34,8 @@ export const columns: ColumnDef<User>[] = [
           },
         });
       };
-      const onDelete = () => {
-        console.log("delete clicked");
-      };
 
-      return <DataTableActions editFn={onEdit} deleteFn={onDelete} />;
+      return <DataTableActions editFn={onEdit} />;
     },
   },
 ];

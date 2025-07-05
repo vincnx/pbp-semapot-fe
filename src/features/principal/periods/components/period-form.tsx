@@ -50,7 +50,7 @@ const PeriodForm = ({ data, onSubmit, isLoading }: PeriodFormProps) => {
             <FormItem>
               <FormLabel>Year</FormLabel>
               <FormControl>
-                <NumberInput {...field} />
+                <NumberInput disabled={data?.status === "aktif"} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -63,6 +63,7 @@ const PeriodForm = ({ data, onSubmit, isLoading }: PeriodFormProps) => {
             <FormItem>
               <FormLabel>Semester</FormLabel>
               <Select
+                disabled={data?.status === "aktif"}
                 name="semester"
                 onValueChange={field.onChange}
                 defaultValue={field.value}

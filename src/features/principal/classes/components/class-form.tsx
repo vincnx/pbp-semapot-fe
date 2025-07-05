@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { useFetchTeachers } from "../../hooks/useFetchTeachers";
 
 interface ClassFormProps {
-  data?: Class & { class_teacher: number };
+  data?: Class;
   onSubmit: (values: ClassSchema) => void;
   isLoading?: boolean;
 }
@@ -41,7 +41,7 @@ const ClassForm = ({ data, onSubmit, isLoading }: ClassFormProps) => {
         grade: data.grade,
         code: data.code,
         year: data.year,
-        class_teacher: data.class_teacher,
+        class_teacher: data.home_teacher?.id,
       });
     }
   }, [data]);

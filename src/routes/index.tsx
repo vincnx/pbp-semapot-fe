@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
     const { user } = useAuthStore.getState();
 
     redirect({
-      to: redirectTo[user?.role as keyof typeof redirectTo],
+      to: redirectTo[user?.role as keyof typeof redirectTo] ?? "/auth/login",
       throw: true,
     });
   },

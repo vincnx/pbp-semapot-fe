@@ -33,6 +33,13 @@ function RouteComponent() {
           });
           navigate({ to: "/principal/classes" });
         },
+        onError: (err) => {
+          toast({
+            title: "Failed to edit class",
+            description: err.response?.data.message,
+            variant: "destructive",
+          });
+        },
       },
     );
   }

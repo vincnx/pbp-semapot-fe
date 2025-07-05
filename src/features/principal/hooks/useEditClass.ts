@@ -1,6 +1,8 @@
 import { axiosInstance } from "@/lib/axios";
 import type { ClassSchema } from "@/schemas/class.schema";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import { useState } from "react";
 
 interface Payload {
   id: string;
@@ -16,8 +18,9 @@ function editClass(payload: Payload) {
 
 export function useEditClass() {
   const queryClient = useQueryClient();
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  return useMutation({
+  const mutation = useMutation({
     mutationFn: async (payload: Payload) => {
       const response = await editClass(payload);
       return response.data;
@@ -25,5 +28,10 @@ export function useEditClass() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fetch.classes"] });
     },
+    onError: (err: AxiosError<{ message: string }>) => {
+      setError(err.response?.data.message);
+    },
   });
+
+  return { ...mutation, error };
 }
