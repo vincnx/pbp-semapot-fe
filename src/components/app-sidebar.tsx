@@ -1,13 +1,4 @@
-import {
-  BookIcon,
-  CalendarRange,
-  LifeBuoy,
-  School,
-  School2,
-  Send,
-  UsersRound,
-  type LucideIcon,
-} from "lucide-react";
+import { School, type LucideIcon } from "lucide-react";
 import * as React from "react";
 
 import { NavMain } from "@/components/nav-main";
@@ -41,72 +32,72 @@ interface NavSecondary {
   icon: LucideIcon;
 }
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Periods",
-      url: "/principal/periods",
-      icon: CalendarRange,
-      isActive: true,
-      items: [
-        {
-          title: "Create",
-          url: "/principal/periods/create",
-        },
-      ],
-    },
-    {
-      title: "Courses",
-      url: "/principal/courses",
-      icon: BookIcon,
-      items: [
-        {
-          title: "Create",
-          url: "/principal/courses/create",
-        },
-      ],
-    },
-    {
-      title: "Students",
-      url: "/principal/students",
-      icon: UsersRound,
-      items: [
-        {
-          title: "Create",
-          url: "/principal/students/create",
-        },
-      ],
-    },
-    {
-      title: "Classes",
-      url: "/principal/classes",
-      icon: School2,
-      items: [
-        {
-          title: "Create",
-          url: "/principal/classes/create",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-};
+// const data = {
+//   user: {
+//     name: "shadcn",
+//     email: "m@example.com",
+//     avatar: "/avatars/shadcn.jpg",
+//   },
+//   navMain: [
+//     {
+//       title: "Periods",
+//       url: "/principal/periods",
+//       icon: CalendarRange,
+//       isActive: true,
+//       items: [
+//         {
+//           title: "Create",
+//           url: "/principal/periods/create",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Courses",
+//       url: "/principal/courses",
+//       icon: BookIcon,
+//       items: [
+//         {
+//           title: "Create",
+//           url: "/principal/courses/create",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Students",
+//       url: "/principal/students",
+//       icon: UsersRound,
+//       items: [
+//         {
+//           title: "Create",
+//           url: "/principal/students/create",
+//         },
+//       ],
+//     },
+//     {
+//       title: "Classes",
+//       url: "/principal/classes",
+//       icon: School2,
+//       items: [
+//         {
+//           title: "Create",
+//           url: "/principal/classes/create",
+//         },
+//       ],
+//     },
+//   ],
+//   navSecondary: [
+//     {
+//       title: "Support",
+//       url: "#",
+//       icon: LifeBuoy,
+//     },
+//     {
+//       title: "Feedback",
+//       url: "#",
+//       icon: Send,
+//     },
+//   ],
+// };
 
 interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   navMain?: NavMain[];
