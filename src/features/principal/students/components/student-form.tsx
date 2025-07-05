@@ -16,21 +16,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { studentSchema, type StudentSchema } from "@/schemas/student.schema";
-import type { Student } from "@/types/student.type";
+import type { User } from "@/types/user.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useFetchClasses } from "../../hooks/useFetchClasses";
 
 interface StudentFormProps {
-  data?: Student;
+  data?: User;
   onSubmit: (values: StudentSchema) => void;
+  isLoading?: boolean;
 }
 
-const StudentForm = ({ data, onSubmit }: StudentFormProps) => {
+const StudentForm = ({ data, onSubmit, isLoading }: StudentFormProps) => {
   const form = useForm<StudentSchema>({
     resolver: zodResolver(studentSchema),
     defaultValues: {
       name: data?.name,
-      class_id: data?.class.id.toString(),
+      class_id: data?.class_students?.[0]?.classroom_id,
     },
   });
 
@@ -47,7 +49,7 @@ const StudentForm = ({ data, onSubmit }: StudentFormProps) => {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} disabled />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -59,26 +61,16 @@ const StudentForm = ({ data, onSubmit }: StudentFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Class</FormLabel>
-              <Select
-                name="class_id"
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a class" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value="1a">1A</SelectItem>
-                  <SelectItem value="1b">1B</SelectItem>
-                </SelectContent>
-              </Select>
+              <ClassDropdown
+                onValueChange={(value) => field.onChange(+value)}
+                value={field.value ? field.value : undefined}
+              />
               <FormMessage />
             </FormItem>
           )}
         />
         <Button
+          isLoading={isLoading}
           className="bg-accent hover:bg-accent/80 mt-2 w-full border-2"
           type="submit"
         >
@@ -86,6 +78,27 @@ const StudentForm = ({ data, onSubmit }: StudentFormProps) => {
         </Button>
       </form>
     </Form>
+  );
+};
+
+const ClassDropdown = (props: React.ComponentProps<typeof Select>) => {
+  const { data } = useFetchClasses();
+
+  return (
+    <Select {...props}>
+      <FormControl>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Select a class" />
+        </SelectTrigger>
+      </FormControl>
+      <SelectContent>
+        {data?.map((item) => (
+          <SelectItem key={item.id} value={item.id}>
+            {item.grade} {item.code.toUpperCase()}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 };
 
